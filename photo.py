@@ -150,7 +150,7 @@ root.title("Photobooth")
 w = root.winfo_screenwidth()
 h = root.winfo_screenheight()
 root.overrideredirect(1)
-root.geometry(SCREEN_WIDTH + "x" + SCREEN_HEIGHT + "0+0")
+root.geometry(SCREEN_WIDTH + "x" + SCREEN_HEIGHT + "+0+0")
 
 pane1 = tk.Frame(root, relief=tk.GROOVE, borderwidth=2)
 pane1.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH)    
