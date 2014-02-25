@@ -26,8 +26,8 @@ MAX_PRINTS = 25
 
 SCREEN_WIDTH = 1680
 SCREEN_HEIGHT = 1050
-CAMERA_WIDTH = 1000
-CAMERA_HEIGHT = 750
+CAMERA_WIDTH = 1200
+CAMERA_HEIGHT = 800
 
 DIR_SAVE = "/home/pi/Photobooth/captured images/"	#for individual camera snapshots
 DIR_COMPOSITE = "/home/pi/Photobooth/final images/" #for final composite images for printing
@@ -167,7 +167,7 @@ btn1.place(x=0, y=0)
 camera=picamera.PiCamera()
 camera.preview_fullscreen = False
 camera.resolution = (CAMERA_WIDTH, CAMERA_HEIGHT)
-camera.preview_window = ((SCREEN_WIDTH - CAMERA_WIDTH) / 2, (SCREEN_HEIGHT - CAMERA_HEIGHT) / 2, CAMERA_WIDTH, CAMERA_HEIGHT)
+camera.preview_window = ((SCREEN_WIDTH - CAMERA_WIDTH) / 2, (SCREEN_HEIGHT - CAMERA_HEIGHT) / 3, CAMERA_WIDTH, CAMERA_HEIGHT)
 camera.start_preview()
 #camera.color_effects = (128, 128)
 #camera.crop = (0.5, 0.5, 1.0, 1.0)
