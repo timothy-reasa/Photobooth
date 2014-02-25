@@ -147,8 +147,8 @@ pane1 = tk.Frame(root, relief=tk.RAISED, borderwidth=2)
 pane1.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH)    
 
 bgImage = tk.PhotoImage(PIL.Image.open(DIR_IMAGE + "screen background.png"))
-bg = tk.Label(pane1)
-#bg.image = bgImage
+bg = tk.Label(pane1, image=bgImage)
+bg.image = bgImage
 #bg.place(x=0, y=0, relwidth=1, relheight=1)
 bg.pack()
 btn1 = tk.Button(pane1, text="quit", command=btn_click)
