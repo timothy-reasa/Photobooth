@@ -159,6 +159,7 @@ camera=picamera.PiCamera()
 camera.preview_fullscreen = False
 camera.resolution = (350, 350)
 camera.preview_window = (290, 100, 350, 350)
+camera.start_preview()
 #camera.color_effects = (128, 128)
 #camera.crop = (0.5, 0.5, 1.0, 1.0)
 
