@@ -19,13 +19,22 @@ BTN_SHUTDOWN = 4
 BTN_PHOTO = 22
 OUT_LIGHT = 17
 OUT_WARNING = 0
+
 DELAY_MS = 100
 NUM_IMAGES = 4
 MAX_PRINTS = 25
+
+SCREEN_WIDTH = 1680
+SCREEN_HEIGHT = 1050
+CAMERA_WIDTH = 1000
+CAMERA_HEIGHT = 750
+
 DIR_SAVE = "/home/pi/Photobooth/captured images/"	#for individual camera snapshots
 DIR_COMPOSITE = "/home/pi/Photobooth/final images/" #for final composite images for printing
 DIR_IMAGE = "/home/pi/Photobooth/base images/"		#for static background images
+
 TEST = True #True no printout and shutdown only warns
+
 
 def btn_click():
     gpio.cleanup()
@@ -141,7 +150,7 @@ root.title("Photobooth")
 w = root.winfo_screenwidth()
 h = root.winfo_screenheight()
 root.overrideredirect(1)
-root.geometry("1680x1050+0+0")
+root.geometry(SCREEN_WIDTH + "x" + SCREEN_HEIGHT + "0+0")
 
 pane1 = tk.Frame(root, relief=tk.GROOVE, borderwidth=2)
 pane1.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH)    
@@ -157,8 +166,8 @@ btn1.place(x=0, y=0)
 #Initialize PI camera
 camera=picamera.PiCamera()
 camera.preview_fullscreen = False
-camera.resolution = (350, 350)
-camera.preview_window = (290, 100, 350, 350)
+camera.resolution = (CAMERA_WIDTH, CAMERA_HEIGHT)
+camera.preview_window = ((SCREEN_WIDTH - CAMERA_WIDTH) / 2, (SCREEN_HEIGHT - CAMERA_HEIGHT) / 2, CAMERA_WIDTH, CAMERA_HEIGHT)
 camera.start_preview()
 #camera.color_effects = (128, 128)
 #camera.crop = (0.5, 0.5, 1.0, 1.0)
