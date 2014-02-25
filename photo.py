@@ -138,8 +138,8 @@ gpio.setup(OUT_LIGHT, gpio.OUT)
 #Initialize GUI
 root = tk.Tk()
 root.title("Photobooth")
-#w = root.winfo_screenwidth()
-#h = root.winfo_screenheight()
+w = root.winfo_screenwidth()
+h = root.winfo_screenheight()
 root.overrideredirect(1)
 root.geometry("1680x1050+0+0")
 
@@ -157,9 +157,9 @@ btn1.place(x=0, y=0)
 #Initialize PI camera
 camera=picamera.PiCamera()
 camera.preview_fullscreen = False
+camera.resolution = (350, 350)
 camera.preview_window = (290, 100, 350, 350)
 #camera.color_effects = (128, 128)
-camera.resolution = (350, 350)
 #camera.crop = (0.5, 0.5, 1.0, 1.0)
 
 #Initialize state
