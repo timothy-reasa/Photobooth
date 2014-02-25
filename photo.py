@@ -22,9 +22,9 @@ OUT_WARNING = 0
 DELAY_MS = 100
 NUM_IMAGES = 4
 MAX_PRINTS = 25
-DIR_SAVE = "/home/pi/photobooth/captured images/"	#for individual camera snapshots
-DIR_COMPOSITE = "/home/pi/photobooth/final images/" #for final composite images for printing
-DIR_IMAGE = "/home/pi/photobooth/base images/"		#for static background images
+DIR_SAVE = "/home/pi/Photobooth/captured images/"	#for individual camera snapshots
+DIR_COMPOSITE = "/home/pi/Photobooth/final images/" #for final composite images for printing
+DIR_IMAGE = "/home/pi/Photobooth/base images/"		#for static background images
 TEST = True #True no printout and shutdown only warns
 
 #Setup gpio
@@ -103,8 +103,7 @@ def takePhotos():
     except:
         print "Unable to load individual images"
         exit(1)
-    
-    finalName = DIR_COMPOSITE + now + ".png"
+     
     try:
         final = PIL.Image.open(DIR_IMAGE + "print background.png")
     except:
@@ -115,6 +114,12 @@ def takePhotos():
     final.paste(im[2], (420,180))
     final.paste(im[3], (30,570))
     final.paste(im[4], (420,570))
+    
+    finalName = DIR_COMPOSITE + now + ".png"
+    path = DIR_COMPOSITE + today + "/"
+    if not (os.path.isdir(path)):
+        os.mkdir(path)
+        
     final.save(finalName)
     
     doPhotoPrint(finalName)
