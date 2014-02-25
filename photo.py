@@ -44,7 +44,7 @@ root.geometry("660x440+0+0")
 pane1 = tk.Frame(root, relief=tk.RAISED, borderwidth=2)
 pane1.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH)    
 
-bgImage = tk.PhotoImage(PIL.Image.open(DIR_IMAGE + "screen background.gif"))
+bgImage = tk.PhotoImage(PIL.Image.open(DIR_IMAGE + "screen background.png"))
 bg = tk.Label(pane1, image=bgImage)
 bg.image = bgImage
 #bg.place(x=0, y=0, relwidth=1, relheight=1)
