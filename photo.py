@@ -141,9 +141,9 @@ root.title("Photobooth")
 #w = root.winfo_screenwidth()
 #h = root.winfo_screenheight()
 root.overrideredirect(1)
-root.geometry("660x440+0+0")
+root.geometry("1680x1050+0+0")
 
-pane1 = tk.Frame(root, relief=tk.RAISED, borderwidth=2)
+pane1 = tk.Frame(root, relief=tk.GROOVE, borderwidth=2)
 pane1.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH)    
 
 bgImage = tk.PhotoImage(file=DIR_IMAGE + "screen background.gif")
