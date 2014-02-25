@@ -18,7 +18,7 @@ import RPi.GPIO as gpio
 BTN_SHUTDOWN = 4
 BTN_PHOTO = 22
 OUT_LIGHT = 17
-#OUT_WARNING =
+OUT_WARNING = 0
 DELAY_MS = 100
 NUM_IMAGES = 4
 MAX_PRINTS = 25
@@ -160,5 +160,7 @@ def lightOff():
     gpio.output(OUT_LIGHT, 0)
     
 def warnOn():
+    #gpio.output(OUT_WARNING, 1)
 
 def warnOff():
+    #gpio.output(OUT_WARNING, 0)
