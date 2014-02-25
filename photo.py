@@ -41,8 +41,8 @@ h = root.winfo_screenheight()
 root.overrideredirect(1)
 root.geometry("660x440+0+0")
 
-pane1 = tk.Frame(root, relief=RAISED, borderwidth=2)
-pane1.pack(side=TOP, expand=YES, fill=BOTH)    
+pane1 = tk.Frame(root, relief=tk.RAISED, borderwidth=2)
+pane1.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH)    
 
 bgImage = tk.PhotoImage(file=DIR_IMAGE + "screen background.gif")
 bg = tk.Label(pane1, image=bgImage)
