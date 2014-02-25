@@ -160,7 +160,7 @@ def lightOff():
     gpio.output(OUT_LIGHT, 0)
     
 def warnOn():
-    #gpio.output(OUT_WARNING, 1)
+    gpio.output(OUT_WARNING, 1)
 
 def warnOff():
-    #gpio.output(OUT_WARNING, 0)
+    gpio.output(OUT_WARNING, 0)
