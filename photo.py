@@ -1,4 +1,5 @@
 # Raspberry Pi PhotoBooth by Bret Lanuis
+# Discovered at http://www.raspberrypi.org/phpBB3/viewtopic.php?f=41&t=48232
 # Modified by Tim Reasa (timothy.reasa@gmail.com)
 # Using Pi Camera Module
 # Requires PIL and picamera libraries
@@ -11,7 +12,7 @@ import os, sys
 import picamera
 import time
 import Tkinter as tk
-import RPi.gpio as gpio
+import RPi.GPIO as gpio
 
 #Declare constants
 BTN_SHUTDOWN = 4
@@ -62,8 +63,6 @@ camera.resolution = (350, 350)
 
 #Initialize state
 printCount = 0
-off = False
-shutter = False
 
 #Main loop
 root.after(DELAY_MS, mainBody)
@@ -128,10 +127,15 @@ def doShutdown():
         sys.exit(0)
     
 def doPhotoPrint(filename):
+    global warn
+
     if not TEST:
         os.system("lp " + filename)
         global printCount
         printCount += 1
+    
+    if printCount >= MAX_PRINTS:
+        warn = True
 
 def takeSinglePhoto(filename, previewLength):
     lightOn()
@@ -154,3 +158,7 @@ def lightOn():
 
 def lightOff():
     gpio.output(OUT_LIGHT, 0)
+    
+def warnOn():
+
+def warnOff():
