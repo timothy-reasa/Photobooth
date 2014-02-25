@@ -11,7 +11,7 @@ import ImageDraw
 import os, sys
 import picamera
 import time
-import Tkinter as tk
+from Tkinter import *
 import RPi.GPIO as gpio
 
 #Declare constants
@@ -34,22 +34,22 @@ gpio.setup(BTN_PHOTO, gpio.IN)
 gpio.setup(OUT_LIGHT, gpio.OUT)
 
 #Initialize GUI
-root = tk.Tk()
+root = Tk()
 root.title("Photobooth")
 w = root.winfo_screenwidth()
 h = root.winfo_screenheight()
 root.overrideredirect(1)
 root.geometry("660x440+0+0")
 
-pane1 = tk.Frame(root, relief=tk.RAISED, borderwidth=2)
-pane1.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH)    
+pane1 = Frame(root, relief=RAISED, borderwidth=2)
+pane1.pack(side=TOP, expand=YES, fill=BOTH)    
 
-bgImage = tk.PhotoImage(PIL.Image.open(DIR_IMAGE + "screen background.png"))
-bg = tk.Label(pane1, image=bgImage)
+bgImage = PhotoImage(PIL.Image.open(DIR_IMAGE + "screen background.png"))
+bg = Label(pane1, image=bgImage)
 bg.image = bgImage
 #bg.place(x=0, y=0, relwidth=1, relheight=1)
 bg.pack()
-btn1 =tk.Button(pane1, text="quit", command=btn_click)
+btn1 =Button(pane1, text="quit", command=btn_click)
 btn1.place(x=0, y=0)
 #btn1.pack()
 
