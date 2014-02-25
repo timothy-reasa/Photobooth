@@ -117,7 +117,17 @@ def takePhotos():
     
     doPhotoPrint(finalName)
 
-
+def mainBody():
+    #First, check for exit conditions
+    if shouldShutdown():
+        doShutdown()
+        
+    #Second, check if we should begin photobooth-ing
+    if shouldStart():
+	    takePhotos()
+	
+    #Finally, schedule ourself to run again
+    root.after(DELAY_MS, mainBody)
     
 #Setup gpio
 gpio.setmode(gpio.BCM)
@@ -159,15 +169,3 @@ printCount = 0
 #Main loop
 root.after(DELAY_MS, mainBody)
 root.mainloop()
-
-def mainBody():
-    #First, check for exit conditions
-    if shouldShutdown():
-        doShutdown()
-        
-    #Second, check if we should begin photobooth-ing
-    if shouldStart():
-	    takePhotos()
-	
-    #Finally, schedule ourself to run again
-    root.after(DELAY_MS, mainBody)
