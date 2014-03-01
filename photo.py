@@ -105,8 +105,8 @@ class Photobooth(Tkinter.Label):
             time.sleep(0.5)
 
         try:
-            for i in range(1, self.NUM_IMAGES):
-                images.append(Image.open(imageNames[i]))
+            for imageName in imageNames:
+                images.append(Image.open(imageName))
         except:
             print "Unable to load individual images"
             exit(1)
