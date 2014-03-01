@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Raspberry Pi PhotoBooth by Bret Lanuis
 # Discovered at http://www.raspberrypi.org/phpBB3/viewtopic.php?f=41&t=48232
 # Modified by Tim Reasa (timothy.reasa@gmail.com)
@@ -6,8 +7,7 @@
 # http://github.com/waveform80/picamera
 # Pythonware.com/products/pil
 
-import PIL.Image
-import ImageDraw
+from PIL import Image,ImageDraw
 import os, sys
 import picamera
 import time
