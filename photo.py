@@ -179,5 +179,5 @@ class Application(Tkinter.Label):
     
 root = Tkinter.Tk()
 app = Application(root)
-app.after(self.DELAY_MS, app.mainBody)
+app.after(app.DELAY_MS, app.mainBody)
 app.mainloop()
