@@ -73,7 +73,7 @@ def doPhotoPrint(filename):
         os.system("lp " + filename)
         printCount += 1
     
-    if printCount >= MAX_PRINTS:
+    if printCount % MAX_PRINTS == 0:
         warn = True
 
 def takeSinglePhoto(filename, previewLength):
