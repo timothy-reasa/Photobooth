@@ -29,9 +29,9 @@ SCREEN_HEIGHT = 1050
 CAMERA_WIDTH = 1200
 CAMERA_HEIGHT = 800
 
-DIR_SAVE = "captured_images/"	#for individual camera snapshots
-DIR_COMPOSITE = "final_images/" #for final composite images for printing
-DIR_IMAGE = "base_images/"		#for static background images
+DIR_SAVE = "/home/pi/Photobooth/captured_images/"	#for individual camera snapshots
+DIR_COMPOSITE = "/home/pi/Photobooth/final_images/" #for final composite images for printing
+DIR_IMAGE = "/home/pi/Photobooth/base_images/"		#for static background images
 
 TEST = True #True no printout and shutdown only warns
 
@@ -100,13 +100,13 @@ def takePhotos():
 
     try:
         for i in range (1, NUM_IMAGES):
-            im[i] = PIL.Image.open(imageName[i])
+            im[i] = Image.open(imageName[i])
     except:
         print "Unable to load individual images"
         exit(1)
      
     try:
-        final = PIL.Image.open(DIR_IMAGE + "print_background.png")
+        final = Image.open(DIR_IMAGE + "print_background.png")
     except:
         print "Unable to load BG"
         exit(1)
