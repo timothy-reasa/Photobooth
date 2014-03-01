@@ -159,6 +159,8 @@ bgImage = PhotoImage(file=DIR_IMAGE + "screen_background.png")
 bg = tk.Label(pane, image=bgImage)
 bg.image = bgImage
 bg.pack()
+btn1 = tk.Button(pane, text="quit", command=closeProgram)
+btn1.place(x=0, y=0)
 
 root.bind("<Escape>", closeProgram)
 root.bind("s", takePhotos)
