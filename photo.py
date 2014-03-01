@@ -88,8 +88,6 @@ class Photobooth(Tkinter.Label):
         self.lightOff()
         
     def takePhotos(self, event=None):
-        imageNames = []
-        images = []
         
         #Start taking Photos
         today = time.strftime("%Y-%m-%d")
@@ -98,9 +96,12 @@ class Photobooth(Tkinter.Label):
             os.makedirs(path)
         
         now = time.strftime("%H%M%S")
-        for i in range(1, self.NUM_IMAGES):
-            imageNames.append(path + now + "_" + str(i) + ".jpg")
-            self.takeSinglePhoto(imageNames[i], 5)
+        
+        imageNames = [path + now + "_" + str(i) + ".jpg" for i in range(1, self.NUM_IMAGES)]
+        images = []
+        
+        for imageName in imageNames:
+            self.takeSinglePhoto(imageName, 5)
             time.sleep(0.5)
 
         try:
