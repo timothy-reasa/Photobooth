@@ -15,7 +15,7 @@ from PIL import Image,ImageDraw
 from PIL.ImageTk import PhotoImage
 import RPi.GPIO as gpio
 
-class Application(Tkinter.Label):
+class Photobooth(Tkinter.Label):
     #Declare constants
     BTN_SHUTDOWN = 4
     BTN_PHOTO = 22
@@ -38,26 +38,26 @@ class Application(Tkinter.Label):
     TEST = True #True no printout and shutdown only warns
 
     def shouldShutdown(self):
-        return gpio.input(self.BTN_SHUTDOWN)
+        return gpio.input(Photobooth.BTN_SHUTDOWN)
         
     def shouldStart(self):
-        return gpio.input(self.BTN_PHOTO)
+        return gpio.input(Photobooth.BTN_PHOTO)
             
     def lightOn(self):
-        gpio.output(self.OUT_LIGHT, 1)
+        gpio.output(Photobooth.OUT_LIGHT, 1)
 
     def lightOff(self):
-        gpio.output(self.OUT_LIGHT, 0)
+        gpio.output(Photobooth.OUT_LIGHT, 0)
         
     def warnOn(self):
-        gpio.output(self.OUT_WARNING, 1)
+        gpio.output(Photobooth.OUT_WARNING, 1)
 
     def warnOff(self):
-        gpio.output(self.OUT_WARNING, 0)
+        gpio.output(Photobooth.OUT_WARNING, 0)
 
     def closeProgram(self, event=None):    
         gpio.cleanup()
-        root.destroy()
+        self.master.destroy()
         return "break"
         
     def doShutdown(self):
@@ -139,18 +139,19 @@ class Application(Tkinter.Label):
             self.takePhotos()
         
         #Finally, schedule ourself to run again
-        self.after(self.DELAY_MS, self.mainBody)
+        self.after(Photobooth.DELAY_MS, self.mainBody)
     
     def __init__(self, master):      
         #Setup gpio
         gpio.setmode(gpio.BCM)
-        gpio.setup(self.BTN_SHUTDOWN, gpio.IN)
-        gpio.setup(self.BTN_PHOTO, gpio.IN)
-        gpio.setup(self.OUT_LIGHT, gpio.OUT)
+        gpio.setup(Photobooth.BTN_SHUTDOWN, gpio.IN)
+        gpio.setup(Photobooth.BTN_PHOTO, gpio.IN)
+        gpio.setup(Photobooth.OUT_LIGHT, gpio.OUT)
 
         #Initialize GUI
         bgImage = PhotoImage(file=self.DIR_IMAGE + "screen_background.png")
         Tkinter.Label.__init__(self, master, image=bgImage)
+        self.master = master
         self.image = bgImage
         self.bind("<Escape>", self.closeProgram)
         self.bind("s", self.takePhotos)
@@ -178,5 +179,5 @@ class Application(Tkinter.Label):
     
 root = Tkinter.Tk()
 app = Application(root)
-app.after(app.DELAY_MS, app.mainBody)
+app.after(Photobooth.DELAY_MS, app.mainBody)
 app.mainloop()
