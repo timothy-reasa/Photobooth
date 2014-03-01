@@ -154,7 +154,7 @@ class Photobooth(Tkinter.Label):
         self.master = master
         self.image = bgImage
         self.pack(side=Tkinter.TOP, expand=Tkinter.YES, fill=Tkinter.BOTH)
-        btn1 = Tkinter.Button(master, text="quit", command=self.closeProgram)
+        btn1 = Tkinter.Button(master, text="quit")
         btn1.bind("<Escape>", self.closeProgram)
         btn1.bind("<Return>", self.takePhotos)
         btn1.place(x=0, y=0)
