@@ -29,9 +29,9 @@ SCREEN_HEIGHT = 1050
 CAMERA_WIDTH = 1200
 CAMERA_HEIGHT = 800
 
-DIR_SAVE = "captured images/"	#for individual camera snapshots
-DIR_COMPOSITE = "final images/" #for final composite images for printing
-DIR_IMAGE = "base images/"		#for static background images
+DIR_SAVE = "captured_images/"	#for individual camera snapshots
+DIR_COMPOSITE = "final_images/" #for final composite images for printing
+DIR_IMAGE = "base_images/"		#for static background images
 
 TEST = True #True no printout and shutdown only warns
 
