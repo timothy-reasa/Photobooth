@@ -38,22 +38,22 @@ class Application(Tkinter.Label):
     TEST = True #True no printout and shutdown only warns
 
     def shouldShutdown():
-        return gpio.input(BTN_SHUTDOWN)
+        return gpio.input(self.BTN_SHUTDOWN)
         
     def shouldStart():
-        return gpio.input(BTN_PHOTO)
+        return gpio.input(self.BTN_PHOTO)
             
     def lightOn():
-        gpio.output(OUT_LIGHT, 1)
+        gpio.output(self.OUT_LIGHT, 1)
 
     def lightOff():
-        gpio.output(OUT_LIGHT, 0)
+        gpio.output(self.OUT_LIGHT, 0)
         
     def warnOn():
-        gpio.output(OUT_WARNING, 1)
+        gpio.output(self.OUT_WARNING, 1)
 
     def warnOff():
-        gpio.output(OUT_WARNING, 0)
+        gpio.output(self.OUT_WARNING, 0)
 
     def closeProgram(event=None):    
         gpio.cleanup()
@@ -75,7 +75,7 @@ class Application(Tkinter.Label):
             os.system("lp " + filename)
             printCount += 1
         
-        if printCount % MAX_PRINTS == 0:
+        if printCount % self.MAX_PRINTS == 0:
             warn = True
 
     def takeSinglePhoto(filename, previewLength):
@@ -96,20 +96,20 @@ class Application(Tkinter.Label):
             os.mkdir(path)
         
         now = time.strftime("%H%M%S")
-        for i in range(1, NUM_IMAGES):
+        for i in range(1, self.NUM_IMAGES):
             imageName[i] = path + now + "_" + str(i) + ".jpg"
             takeSinglePhoto(imageName[i], 5)
             time.sleep(0.5)
 
         try:
-            for i in range (1, NUM_IMAGES):
+            for i in range (1, self.NUM_IMAGES):
                 im[i] = Image.open(imageName[i])
         except:
             print "Unable to load individual images"
             exit(1)
          
         try:
-            final = Image.open(DIR_IMAGE + "print_background.png")
+            final = Image.open(self.DIR_IMAGE + "print_background.png")
         except:
             print "Unable to load BG"
             exit(1)
@@ -119,8 +119,8 @@ class Application(Tkinter.Label):
         final.paste(im[3], (30,570))
         final.paste(im[4], (420,570))
         
-        finalName = DIR_COMPOSITE + now + ".png"
-        path = DIR_COMPOSITE + today + "/"
+        finalName = self.DIR_COMPOSITE + now + ".png"
+        path = self.DIR_COMPOSITE + today + "/"
         if not (os.path.isdir(path)):
             os.mkdir(path)
             
@@ -140,17 +140,17 @@ class Application(Tkinter.Label):
             takePhotos()
         
         #Finally, schedule ourself to run again
-        self.after(DELAY_MS, self.mainBody)
+        self.after(self.DELAY_MS, self.mainBody)
     
     def __init__(self, master):      
         #Setup gpio
         gpio.setmode(gpio.BCM)
-        gpio.setup(BTN_SHUTDOWN, gpio.IN)
-        gpio.setup(BTN_PHOTO, gpio.IN)
-        gpio.setup(OUT_LIGHT, gpio.OUT)
+        gpio.setup(self.BTN_SHUTDOWN, gpio.IN)
+        gpio.setup(self.BTN_PHOTO, gpio.IN)
+        gpio.setup(self.OUT_LIGHT, gpio.OUT)
 
         #Initialize GUI
-        bgImage = PhotoImage(file=DIR_IMAGE + "screen_background.png")
+        bgImage = PhotoImage(file=self.DIR_IMAGE + "screen_background.png")
         Tkinter.Label.__init__(self, master, image=bgImage)
         self.image = bgImage
         self.bind("<Escape>", closeProgram)
@@ -160,15 +160,15 @@ class Application(Tkinter.Label):
         btn1.place(x=0, y=0)
         
         self.master.overrideredirect(1)
-        self.master.geometry(str(SCREEN_WIDTH) + "x" + str(SCREEN_HEIGHT) + "+0+0")
+        self.master.geometry(str(self.SCREEN_WIDTH) + "x" + str(self.SCREEN_HEIGHT) + "+0+0")
 
         self.focus_set()
 
         #Initialize PI camera
         camera=picamera.PiCamera()
         camera.preview_fullscreen = False
-        camera.resolution = (CAMERA_WIDTH, CAMERA_HEIGHT)
-        camera.preview_window = ((SCREEN_WIDTH - CAMERA_WIDTH) / 2, (SCREEN_HEIGHT - CAMERA_HEIGHT) / 3, CAMERA_WIDTH, CAMERA_HEIGHT)
+        camera.resolution = (self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
+        camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, (self.SCREEN_HEIGHT - self.CAMERA_HEIGHT) / 3, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
         #camera.start_preview()
         #camera.color_effects = (128, 128)
         #camera.crop = (0.5, 0.5, 1.0, 1.0)
@@ -179,5 +179,5 @@ class Application(Tkinter.Label):
     
 root = Tkinter.Tk()
 app = Application(root)
-app.after(DELAY_MS, app.mainBody)
+app.after(self.DELAY_MS, app.mainBody)
 app.mainloop()
