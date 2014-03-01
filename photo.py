@@ -62,7 +62,7 @@ class Photobooth(Tkinter.Label):
         return "break"
         
     def doShutdown(self):
-        if TEST:
+        if self.TEST:
             os.system("sudo shutdown -k now shutdown button pressed [testing]")
         else:
             gpio.cleanup()
@@ -71,11 +71,11 @@ class Photobooth(Tkinter.Label):
         
     def doPhotoPrint(self, filename):
 
-        if not TEST:
+        if not self.TEST:
             os.system("lp " + filename)
             self.printCount += 1
         
-        if printCount % self.MAX_PRINTS == 0:
+        if self.printCount % self.MAX_PRINTS == 0:
             self.warn = True
 
     def takeSinglePhoto(self, previewLength):
@@ -85,9 +85,9 @@ class Photobooth(Tkinter.Label):
         self.camera.hflip = True
         self.camera.start_preview()
         time.sleep(previewLength)
+        self.camera.stop_preview()
         self.camera.hflip = False
         self.camera.capture(stream, format='jpeg')
-        self.camera.stop_preview()
         self.lightOff()
         
         stream.seek(0)
@@ -124,8 +124,8 @@ class Photobooth(Tkinter.Label):
         final.paste(images[2], (30,570))
         final.paste(images[3], (420,570))
         
-        finalName = self.DIR_COMPOSITE + now + ".png"
         path = self.DIR_COMPOSITE + today + "/"
+        finalName = path + now + ".png"
         if not (os.path.isdir(path)):
             os.makedirs(path)
             
