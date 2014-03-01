@@ -119,10 +119,10 @@ class Photobooth(Tkinter.Label):
             print "Unable to load BG"
             exit(1)
 
-        final.paste(images[1], (30,180))
-        final.paste(images[2], (420,180))
-        final.paste(images[3], (30,570))
-        final.paste(images[4], (420,570))
+        final.paste(images[0], (30,180))
+        final.paste(images[1], (420,180))
+        final.paste(images[2], (30,570))
+        final.paste(images[3], (420,570))
         
         finalName = self.DIR_COMPOSITE + now + ".png"
         path = self.DIR_COMPOSITE + today + "/"
