@@ -159,7 +159,7 @@ class Photobooth(Tkinter.Label):
         btn1.bind("<Return>", self.takePhotos)
         btn1.place(x=0, y=0)
         
-        master.overrideredirect(1)
+        #master.overrideredirect(1)
         master.geometry(str(self.SCREEN_WIDTH) + "x" + str(self.SCREEN_HEIGHT) + "+0+0")
 
         btn1.focus_set()
