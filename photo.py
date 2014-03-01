@@ -155,8 +155,8 @@ class Application(Tkinter.Label):
         self.image = bgImage
         self.bind("<Escape>", self.closeProgram)
         self.bind("s", self.takePhotos)
-        self.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH)
-        btn1 = tk.Button(master, text="quit", command=self.closeProgram)
+        self.pack(side=Tkinter.TOP, expand=Tkinter.YES, fill=Tkinter.BOTH)
+        btn1 = Tkinter.Button(master, text="quit", command=self.closeProgram)
         btn1.place(x=0, y=0)
         
         self.master.overrideredirect(1)
