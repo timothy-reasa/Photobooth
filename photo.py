@@ -145,8 +145,7 @@ gpio.setup(BTN_PHOTO, gpio.IN)
 gpio.setup(OUT_LIGHT, gpio.OUT)
 
 #Initialize GUI
-root = tk.Tcl()
-root.loadtk()
+root = tk.Tk()
 root.title("Photobooth")
 w = root.winfo_screenwidth()
 h = root.winfo_screenheight()
