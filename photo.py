@@ -37,30 +37,30 @@ class Application(Tkinter.Label):
 
     TEST = True #True no printout and shutdown only warns
 
-    def shouldShutdown():
+    def shouldShutdown(self):
         return gpio.input(self.BTN_SHUTDOWN)
         
-    def shouldStart():
+    def shouldStart(self):
         return gpio.input(self.BTN_PHOTO)
             
-    def lightOn():
+    def lightOn(self):
         gpio.output(self.OUT_LIGHT, 1)
 
-    def lightOff():
+    def lightOff(self):
         gpio.output(self.OUT_LIGHT, 0)
         
-    def warnOn():
+    def warnOn(self):
         gpio.output(self.OUT_WARNING, 1)
 
-    def warnOff():
+    def warnOff(self):
         gpio.output(self.OUT_WARNING, 0)
 
-    def closeProgram(event=None):    
+    def closeProgram(self, event=None):    
         gpio.cleanup()
         root.destroy()
         return "break"
         
-    def doShutdown():
+    def doShutdown(self):
         if TEST:
             os.system("sudo shutdown -k now shutdown button pressed [testing]")
         else:
@@ -68,7 +68,7 @@ class Application(Tkinter.Label):
             os.system("sudo shutdown -h now shutdown button pressed")
             sys.exit(0)
         
-    def doPhotoPrint(filename):
+    def doPhotoPrint(self, filename):
         global warn
         global printCount
         if not TEST:
@@ -78,7 +78,7 @@ class Application(Tkinter.Label):
         if printCount % self.MAX_PRINTS == 0:
             warn = True
 
-    def takeSinglePhoto(filename, previewLength):
+    def takeSinglePhoto(self, filename, previewLength):
         lightOn()
         camera.hflip = True
         camera.start_preview()
@@ -88,7 +88,7 @@ class Application(Tkinter.Label):
         camera.stop_preview()
         lightOff()
         
-    def takePhotos(event=None):
+    def takePhotos(self, event=None):
         #Start taking Photos
         today = time.strftime("%d-%m-%Y")
         path = DIR_SAVE + today + "/"
@@ -129,7 +129,7 @@ class Application(Tkinter.Label):
         doPhotoPrint(finalName)
         return "break"
     
-    def mainBody():
+    def mainBody(self):
 
         #First, check for exit conditions
         if shouldShutdown():
