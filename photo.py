@@ -79,12 +79,12 @@ class Photobooth(Tkinter.Label):
 
     def takeSinglePhoto(self, filename, previewLength):
         self.lightOn()
-        camera.hflip = True
-        camera.start_preview()
+        self.camera.hflip = True
+        self.camera.start_preview()
         time.sleep(previewLength)
-        camera.hflip = False
-        camera.capture(filename)
-        camera.stop_preview()
+        self.camera.hflip = False
+        self.camera.capture(filename)
+        self.camera.stop_preview()
         self.lightOff()
         
     def takePhotos(self, event=None):
@@ -167,10 +167,10 @@ class Photobooth(Tkinter.Label):
         self.focus_set()
 
         #Initialize PI camera
-        camera=picamera.PiCamera()
-        camera.preview_fullscreen = False
-        camera.resolution = (self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
-        camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, (self.SCREEN_HEIGHT - self.CAMERA_HEIGHT) / 3, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
+        self.camera=picamera.PiCamera()
+        self.camera.preview_fullscreen = False
+        self.camera.resolution = (self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
+        self.camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, (self.SCREEN_HEIGHT - self.CAMERA_HEIGHT) / 3, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
         #camera.start_preview()
         #camera.color_effects = (128, 128)
         #camera.crop = (0.5, 0.5, 1.0, 1.0)
