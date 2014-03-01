@@ -153,14 +153,14 @@ class Photobooth(Tkinter.Label):
         Tkinter.Label.__init__(self, master, image=bgImage)
         self.master = master
         self.image = bgImage
-        self.bind("<Escape>", self.closeProgram)
-        self.bind("s", self.takePhotos)
+        master.bind("<Escape>", self.closeProgram)
+        master.bind("<Return>", self.takePhotos)
         self.pack(side=Tkinter.TOP, expand=Tkinter.YES, fill=Tkinter.BOTH)
         btn1 = Tkinter.Button(master, text="quit", command=self.closeProgram)
         btn1.place(x=0, y=0)
         
-        self.master.overrideredirect(1)
-        self.master.geometry(str(self.SCREEN_WIDTH) + "x" + str(self.SCREEN_HEIGHT) + "+0+0")
+        master.overrideredirect(1)
+        master.geometry(str(self.SCREEN_WIDTH) + "x" + str(self.SCREEN_HEIGHT) + "+0+0")
 
         self.focus_set()
 
