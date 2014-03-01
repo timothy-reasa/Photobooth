@@ -178,6 +178,6 @@ class Photobooth(Tkinter.Label):
         self.warn = False
     
 root = Tkinter.Tk()
-app = Application(root)
+app = Photobooth(root)
 app.after(Photobooth.DELAY_MS, app.mainBody)
 app.mainloop()
