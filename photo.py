@@ -7,11 +7,12 @@
 # http://github.com/waveform80/picamera
 # Pythonware.com/products/pil
 
-from PIL import Image,ImageTk,ImageDraw
 import os, sys
 import picamera
 import time
 import Tkinter as tk
+from PIL import Image,ImageDraw
+from PIL.ImageTk import PhotoImage
 import RPi.GPIO as gpio
 
 #Declare constants
@@ -156,7 +157,7 @@ root.bind("s", takePhotos)
 pane1 = tk.Frame(root, relief=tk.GROOVE, borderwidth=2)
 pane1.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH)    
 
-bgImage = ImageTk.PhotoImage(Image.open(DIR_IMAGE + "screen_background.png"))
+bgImage = PhotoImage(file=DIR_IMAGE + "screen_background.png")
 bg = tk.Label(pane1, image=bgImage)
 bg.image = bgImage
 #bg.place(x=0, y=0, relwidth=1, relheight=1)
