@@ -89,10 +89,10 @@ class Photobooth(Tkinter.Label):
         
     def takePhotos(self, event=None):
         #Start taking Photos
-        today = time.strftime("%d-%m-%Y")
+        today = time.strftime("%Y-%m-%d")
         path = self.DIR_SAVE + today + "/"
         if not (os.path.isdir(path)):
-            os.mkdir(path)
+            os.mkdirs(path)
         
         now = time.strftime("%H%M%S")
         for i in range(1, self.NUM_IMAGES):
@@ -121,7 +121,7 @@ class Photobooth(Tkinter.Label):
         finalName = self.DIR_COMPOSITE + now + ".png"
         path = self.DIR_COMPOSITE + today + "/"
         if not (os.path.isdir(path)):
-            os.mkdir(path)
+            os.mkdirs(path)
             
         final.save(finalName)
         
