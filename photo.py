@@ -57,6 +57,7 @@ def warnOff():
 def closeProgram(event=None):    
     gpio.cleanup()
     root.destroy()
+    return "break"
     
 def doShutdown():
     if TEST:
@@ -125,6 +126,7 @@ def takePhotos(event=None):
     final.save(finalName)
     
     doPhotoPrint(finalName)
+    return "break"
 
 def mainBody():
 
