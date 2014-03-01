@@ -166,7 +166,8 @@ btn1 = tk.Button(pane, text="quit", command=closeProgram)
 btn1.place(x=0, y=0)
 pane.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH) 
 
-pane.focus_force()
+bg.focus_force()
+bg.focus_set()
 
 #Initialize PI camera
 camera=picamera.PiCamera()
