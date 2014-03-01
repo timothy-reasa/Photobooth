@@ -153,7 +153,7 @@ root.overrideredirect(1)
 root.geometry(str(SCREEN_WIDTH) + "x" + str(SCREEN_HEIGHT) + "+0+0")
 root.bind("<Escape>", closeProgram)
 root.bind("s", takePhotos)
-root.focus()
+root.focus_set()
 
 pane1 = tk.Frame(root, relief=tk.GROOVE, borderwidth=2)   
 bgImage = PhotoImage(file=DIR_IMAGE + "screen_background.png")
