@@ -35,11 +35,6 @@ DIR_IMAGE = "base images/"		#for static background images
 
 TEST = True #True no printout and shutdown only warns
 
-
-def btn_click():
-    gpio.cleanup()
-    sys.exit(0)
-
 def shouldShutdown():
     return gpio.input(BTN_SHUTDOWN)
     
@@ -57,20 +52,24 @@ def warnOn():
 
 def warnOff():
     gpio.output(OUT_WARNING, 0)
+
+def closeProgram():    
+    gpio.cleanup()
+    root.destroy()
     
 def doShutdown():
     if TEST:
         os.system("sudo shutdown -k now shutdown button pressed [testing]")
     else:
+        gpio.cleanup()
         os.system("sudo shutdown -h now shutdown button pressed")
         sys.exit(0)
     
 def doPhotoPrint(filename):
     global warn
-
+    global printCount
     if not TEST:
         os.system("lp " + filename)
-        global printCount
         printCount += 1
     
     if printCount >= MAX_PRINTS:
@@ -107,7 +106,7 @@ def takePhotos():
         exit(1)
      
     try:
-        final = PIL.Image.open(DIR_IMAGE + "print background.png")
+        final = PIL.Image.open(DIR_IMAGE + "print_background.png")
     except:
         print "Unable to load BG"
         exit(1)
@@ -132,7 +131,7 @@ def mainBody():
         doShutdown()
         
     #Second, check if we should begin photobooth-ing
-    if not want and shouldStart():
+    if not warn and shouldStart():
 	    takePhotos()
 	
     #Finally, schedule ourself to run again
@@ -151,17 +150,15 @@ w = root.winfo_screenwidth()
 h = root.winfo_screenheight()
 root.overrideredirect(1)
 root.geometry(str(SCREEN_WIDTH) + "x" + str(SCREEN_HEIGHT) + "+0+0")
+root.bind("<Escape>", self.closeProgram())
 
 pane1 = tk.Frame(root, relief=tk.GROOVE, borderwidth=2)
 pane1.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH)    
 
-bgImage = tk.PhotoImage(file=DIR_IMAGE + "screen background.gif")
+bgImage = tk.PhotoImage(file=DIR_IMAGE + "screen_background.gif")
 bg = tk.Label(pane1, image=bgImage)
 bg.image = bgImage
 #bg.place(x=0, y=0, relwidth=1, relheight=1)
-bg.pack()
-btn1 = tk.Button(pane1, text="quit", command=btn_click)
-btn1.place(x=0, y=0)
 
 #Initialize PI camera
 camera=picamera.PiCamera()
@@ -174,6 +171,7 @@ camera.preview_window = ((SCREEN_WIDTH - CAMERA_WIDTH) / 2, (SCREEN_HEIGHT - CAM
 
 #Initialize state
 printCount = 0
+warn = 0
 
 #Main loop
 root.after(DELAY_MS, mainBody)
