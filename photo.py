@@ -156,6 +156,8 @@ root.overrideredirect(1)
 root.geometry(str(SCREEN_WIDTH) + "x" + str(SCREEN_HEIGHT) + "+0+0")
 
 pane = tk.Frame(root)
+root.bind("<Escape>", closeProgram)
+root.bind("s", takePhotos)
 pane.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH) 
 bgImage = PhotoImage(file=DIR_IMAGE + "screen_background.png")
 bg = tk.Label(pane, image=bgImage)
@@ -164,9 +166,7 @@ bg.pack()
 btn1 = tk.Button(pane, text="quit", command=closeProgram)
 btn1.place(x=0, y=0)
 
-root.bind("<Escape>", closeProgram)
-root.bind("s", takePhotos)
-root.focus_force()
+pane.focus_force()
 
 #Initialize PI camera
 camera=picamera.PiCamera()
