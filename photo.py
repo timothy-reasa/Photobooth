@@ -29,9 +29,9 @@ SCREEN_HEIGHT = 1050
 CAMERA_WIDTH = 1200
 CAMERA_HEIGHT = 800
 
-DIR_SAVE = "/home/pi/Photobooth/captured images/"	#for individual camera snapshots
-DIR_COMPOSITE = "/home/pi/Photobooth/final images/" #for final composite images for printing
-DIR_IMAGE = "/home/pi/Photobooth/base images/"		#for static background images
+DIR_SAVE = "captured images/"	#for individual camera snapshots
+DIR_COMPOSITE = "final images/" #for final composite images for printing
+DIR_IMAGE = "base images/"		#for static background images
 
 TEST = True #True no printout and shutdown only warns
 
