@@ -10,6 +10,7 @@
 import os, sys
 import picamera
 import time
+import io
 import Tkinter
 from PIL import Image,ImageDraw
 from PIL.ImageTk import PhotoImage
@@ -77,15 +78,21 @@ class Photobooth(Tkinter.Label):
         if printCount % self.MAX_PRINTS == 0:
             self.warn = True
 
-    def takeSinglePhoto(self, filename, previewLength):
+    def takeSinglePhoto(self, previewLength):
+        stream = io.BytesIO()
+        
         self.lightOn()
         self.camera.hflip = True
         self.camera.start_preview()
         time.sleep(previewLength)
         self.camera.hflip = False
-        self.camera.capture(filename)
+        self.camera.capture(stream, format='jpeg')
         self.camera.stop_preview()
         self.lightOff()
+        
+        stream.seek(0)
+        photo = Image.open(stream)
+        return photo
         
     def takePhotos(self, event=None):
         
@@ -97,19 +104,14 @@ class Photobooth(Tkinter.Label):
         
         now = time.strftime("%H%M%S")
         
-        imageNames = [path + now + "_" + str(i) + ".jpg" for i in range(1, self.NUM_IMAGES)]
+        imageNames = [path + now + "_" + str(i) + ".jpg" for i in range(1, 1 + self.NUM_IMAGES)]
         images = []
         
         for imageName in imageNames:
-            self.takeSinglePhoto(imageName, 5)
+            photo = self.takeSinglePhoto(5)
+            photo.save(imageName)
+            images.append(photo)
             time.sleep(0.5)
-
-        try:
-            for imageName in imageNames:
-                images.append(Image.open(imageName))
-        except:
-            print "Unable to load individual images"
-            exit(1)
          
         try:
             final = Image.open(self.DIR_IMAGE + "print_background.png")
