@@ -69,14 +69,13 @@ class Application(Tkinter.Label):
             sys.exit(0)
         
     def doPhotoPrint(self, filename):
-        global warn
-        global printCount
+
         if not TEST:
             os.system("lp " + filename)
-            printCount += 1
+            self.printCount += 1
         
         if printCount % self.MAX_PRINTS == 0:
-            warn = True
+            self.warn = True
 
     def takeSinglePhoto(self, filename, previewLength):
         self.lightOn()
@@ -130,14 +129,13 @@ class Application(Tkinter.Label):
         return "break"
     
     def mainBody(self):
-        global warn
     
         #First, check for exit conditions
         if self.shouldShutdown():
             self.doShutdown()
             
         #Second, check if we should begin photobooth-ing
-        if not warn and self.shouldStart():
+        if not self.warn and self.shouldStart():
             self.takePhotos()
         
         #Finally, schedule ourself to run again
@@ -175,8 +173,8 @@ class Application(Tkinter.Label):
         #camera.crop = (0.5, 0.5, 1.0, 1.0)
 
         #Initialize state
-        printCount = 0
-        warn = 0
+        self.printCount = 0
+        self.warn = False
     
 root = Tkinter.Tk()
 app = Application(root)
