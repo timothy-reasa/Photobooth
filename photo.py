@@ -88,6 +88,8 @@ class Photobooth(Tkinter.Label):
         self.lightOff()
         
     def takePhotos(self, event=None):
+        imageName = []
+        
         #Start taking Photos
         today = time.strftime("%Y-%m-%d")
         path = self.DIR_SAVE + today + "/"
