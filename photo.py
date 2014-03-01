@@ -54,7 +54,7 @@ def warnOn():
 def warnOff():
     gpio.output(OUT_WARNING, 0)
 
-def closeProgram():    
+def closeProgram(event=None):    
     gpio.cleanup()
     root.destroy()
     
@@ -85,8 +85,8 @@ def takeSinglePhoto(filename, previewLength):
     camera.capture(filename)
     camera.stop_preview()
     lightOff()
-        
-def takePhotos():
+    
+def takePhotos(event=None):
     #Start taking Photos
     today = time.strftime("%d-%m-%Y")
     path = DIR_SAVE + today + "/"
