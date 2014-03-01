@@ -162,7 +162,7 @@ class Photobooth(Tkinter.Label):
         #master.overrideredirect(1)
         master.geometry(str(self.SCREEN_WIDTH) + "x" + str(self.SCREEN_HEIGHT) + "+0+0")
 
-        btn1.focus_set()
+        self.focus_set()
 
         #Initialize PI camera
         camera=picamera.PiCamera()
