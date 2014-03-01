@@ -79,14 +79,14 @@ class Application(Tkinter.Label):
             warn = True
 
     def takeSinglePhoto(self, filename, previewLength):
-        lightOn()
+        self.lightOn()
         camera.hflip = True
         camera.start_preview()
         time.sleep(previewLength)
         camera.hflip = False
         camera.capture(filename)
         camera.stop_preview()
-        lightOff()
+        self.lightOff()
         
     def takePhotos(self, event=None):
         #Start taking Photos
@@ -98,11 +98,11 @@ class Application(Tkinter.Label):
         now = time.strftime("%H%M%S")
         for i in range(1, self.NUM_IMAGES):
             imageName[i] = path + now + "_" + str(i) + ".jpg"
-            takeSinglePhoto(imageName[i], 5)
+            self.takeSinglePhoto(imageName[i], 5)
             time.sleep(0.5)
 
         try:
-            for i in range (1, self.NUM_IMAGES):
+            for i in range(1, self.NUM_IMAGES):
                 im[i] = Image.open(imageName[i])
         except:
             print "Unable to load individual images"
@@ -126,18 +126,19 @@ class Application(Tkinter.Label):
             
         final.save(finalName)
         
-        doPhotoPrint(finalName)
+        self.doPhotoPrint(finalName)
         return "break"
     
     def mainBody(self):
-
+        global warn
+    
         #First, check for exit conditions
-        if shouldShutdown():
-            doShutdown()
+        if self.shouldShutdown():
+            self.doShutdown()
             
         #Second, check if we should begin photobooth-ing
-        if not warn and shouldStart():
-            takePhotos()
+        if not warn and self.shouldStart():
+            self.takePhotos()
         
         #Finally, schedule ourself to run again
         self.after(self.DELAY_MS, self.mainBody)
