@@ -153,10 +153,10 @@ class Application(Tkinter.Label):
         bgImage = PhotoImage(file=self.DIR_IMAGE + "screen_background.png")
         Tkinter.Label.__init__(self, master, image=bgImage)
         self.image = bgImage
-        self.bind("<Escape>", closeProgram)
-        self.bind("s", takePhotos)
+        self.bind("<Escape>", self.closeProgram)
+        self.bind("s", self.takePhotos)
         self.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH)
-        btn1 = tk.Button(self, text="quit", command=closeProgram)
+        btn1 = tk.Button(master, text="quit", command=self.closeProgram)
         btn1.place(x=0, y=0)
         
         self.master.overrideredirect(1)
