@@ -132,7 +132,7 @@ def mainBody():
         doShutdown()
         
     #Second, check if we should begin photobooth-ing
-    if shouldStart():
+    if not want and shouldStart():
 	    takePhotos()
 	
     #Finally, schedule ourself to run again
@@ -145,7 +145,8 @@ gpio.setup(BTN_PHOTO, gpio.IN)
 gpio.setup(OUT_LIGHT, gpio.OUT)
 
 #Initialize GUI
-root = tk.Tk()
+root = tk.Tcl()
+root.loadtk()
 root.title("Photobooth")
 w = root.winfo_screenwidth()
 h = root.winfo_screenheight()
@@ -168,7 +169,7 @@ camera=picamera.PiCamera()
 camera.preview_fullscreen = False
 camera.resolution = (CAMERA_WIDTH, CAMERA_HEIGHT)
 camera.preview_window = ((SCREEN_WIDTH - CAMERA_WIDTH) / 2, (SCREEN_HEIGHT - CAMERA_HEIGHT) / 3, CAMERA_WIDTH, CAMERA_HEIGHT)
-camera.start_preview()
+#camera.start_preview()
 #camera.color_effects = (128, 128)
 #camera.crop = (0.5, 0.5, 1.0, 1.0)
 
