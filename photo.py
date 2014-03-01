@@ -127,7 +127,6 @@ def takePhotos():
     doPhotoPrint(finalName)
 
 def mainBody():
-    root.focus_set()
 
     #First, check for exit conditions
     if shouldShutdown():
@@ -163,7 +162,7 @@ bg.pack()
 
 root.bind("<Escape>", closeProgram)
 root.bind("s", takePhotos)
-root.focus_set()
+root.focus_force()
 
 #Initialize PI camera
 camera=picamera.PiCamera()
