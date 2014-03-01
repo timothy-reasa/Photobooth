@@ -153,10 +153,10 @@ class Photobooth(Tkinter.Label):
         Tkinter.Label.__init__(self, master, image=bgImage)
         self.master = master
         self.image = bgImage
+        self.bind("<Escape>", self.closeProgram)
+        self.bind("<Return>", self.takePhotos)
         self.pack(side=Tkinter.TOP, expand=Tkinter.YES, fill=Tkinter.BOTH)
         btn1 = Tkinter.Button(master, text="quit")
-        btn1.bind("<Escape>", self.closeProgram)
-        btn1.bind("<Return>", self.takePhotos)
         btn1.place(x=0, y=0)
         
         #master.overrideredirect(1)
@@ -178,6 +178,7 @@ class Photobooth(Tkinter.Label):
         self.warn = False
     
 root = Tkinter.Tk()
+root.title("Photobooth")
 app = Photobooth(root)
 app.after(Photobooth.DELAY_MS, app.mainBody)
 app.mainloop()
