@@ -151,16 +151,21 @@ w = root.winfo_screenwidth()
 h = root.winfo_screenheight()
 root.overrideredirect(1)
 root.geometry(str(SCREEN_WIDTH) + "x" + str(SCREEN_HEIGHT) + "+0+0")
-root.bind("<Escape>", closeProgram)
-root.bind("s", takePhotos)
-root.focus_set()
 
-pane1 = tk.Frame(root, relief=tk.GROOVE, borderwidth=2)   
+pane1 = tk.Frame(root, relief=tk.GROOVE, borderwidth=2)
+pane1.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH) 
 bgImage = PhotoImage(file=DIR_IMAGE + "screen_background.png")
 bg = tk.Label(pane1, image=bgImage)
 bg.image = bgImage
-pane1.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH) 
 #bg.place(x=0, y=0, relwidth=1, relheight=1)
+bg.pack()
+btn1 = tk.Button(pane1, text="quit", command=closeProgram)
+btn1.place(x=0, y=0)
+
+
+root.bind("<Escape>", closeProgram)
+root.bind("s", takePhotos)
+root.focus_set()
 
 #Initialize PI camera
 camera=picamera.PiCamera()
