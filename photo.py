@@ -90,7 +90,7 @@ class Photobooth(Tkinter.Label):
     def takePhotos(self, event=None):
         #Start taking Photos
         today = time.strftime("%d-%m-%Y")
-        path = DIR_SAVE + today + "/"
+        path = self.DIR_SAVE + today + "/"
         if not (os.path.isdir(path)):
             os.mkdir(path)
         
