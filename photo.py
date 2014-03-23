@@ -125,7 +125,7 @@ class Photobooth(Tkinter.Label):
         
         #Open the final image        
         try:
-            final = Image.open(self.DIR_IMAGE + "print_background.png")
+            final = Image.open(self.DIR_IMAGE + "print_background.png").convert("RGB")
         except:
             print "Unable to load BG"
             exit(1)
@@ -135,8 +135,8 @@ class Photobooth(Tkinter.Label):
         column2 = self.PRINT_WIDTH / 2 + self.THUMBNAIL_PADDING
         row = self.THUMBNAIL_PADDING
         for photo in images:
-            final.paste(photo, (column1,row), photo)
-            final.paste(photo, (column2,row), photo)
+            final.paste(photo, (column1,row))
+            final.paste(photo, (column2,row))
             row += self.THUMBNAIL_HEIGHT + self.THUMBNAIL_PADDING
         
         #Save the final image
