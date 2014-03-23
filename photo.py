@@ -131,13 +131,13 @@ class Photobooth(Tkinter.Label):
             exit(1)
         
         #Lay out the photos on the final image
-        column1 = THUMBNAIL_PADDING
-        column2 = PRINT_WIDTH / 2 + THUMBNAIL_PADDING
-        row = THUMBNAIL_PADDING
+        column1 = self.THUMBNAIL_PADDING
+        column2 = self.PRINT_WIDTH / 2 + self.THUMBNAIL_PADDING
+        row = self.THUMBNAIL_PADDING
         for photo in images:
             final.paste(photo, (column1,row))
             final.paste(photo, (column2,row))
-            row += THUMBNAIL_HEIGHT + THUMBNAIL_PADDING
+            row += self.THUMBNAIL_HEIGHT + self.THUMBNAIL_PADDING
         
         #Save the final image
         path = self.DIR_COMPOSITE + today + "/"
