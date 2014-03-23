@@ -135,8 +135,9 @@ class Photobooth(Tkinter.Label):
         column2 = self.PRINT_WIDTH / 2 + self.THUMBNAIL_PADDING
         row = self.THUMBNAIL_PADDING
         for photo in images:
-            final.paste(photo, (column1,row))
-            final.paste(photo, (column2,row))
+            mask = photo.convert("RGBA")
+            final.paste(photo, (column1,row), mask)
+            final.paste(photo, (column2,row), mask)
             row += self.THUMBNAIL_HEIGHT + self.THUMBNAIL_PADDING
         
         #Save the final image
