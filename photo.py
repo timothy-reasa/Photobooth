@@ -116,7 +116,7 @@ class Photobooth(Tkinter.Label):
         for imageName in imageNames:
             photo = self.takeSinglePhoto(5)
             photo.save(imageName)
-            photo.resize((self.THUMBNAIL_WIDTH, self.THUMBNAIL_HEIGHT), ANTIALIAS)
+            photo.resize((self.THUMBNAIL_WIDTH,self.THUMBNAIL_HEIGHT), ANTIALIAS)
             images.append(photo)
             time.sleep(0.5)
          
@@ -129,17 +129,10 @@ class Photobooth(Tkinter.Label):
         column1 = THUMBNAIL_PADDING
         column2 = PRINT_WIDTH / 2 + THUMBNAIL_PADDING
         row = THUMBNAIL_PADDING
-        final.paste(images[0], (column1,row))
-        final.paste(images[0], (column2,row))
-        row += THUMBNAIL_HEIGHT + THUMBNAIL_PADDING
-        final.paste(images[1], (column1,row))
-        final.paste(images[1], (column2,row))
-        row += THUMBNAIL_HEIGHT + THUMBNAIL_PADDING
-        final.paste(images[2], (column1,row))
-        final.paste(images[2], (column2,row))
-        row += THUMBNAIL_HEIGHT + THUMBNAIL_PADDING
-        final.paste(images[3], (column1,row))
-        final.paste(images[3], (column2,row))
+        for photo in images:
+            final.paste(photo, (column1,row))
+            final.paste(photo, (column2,row))
+            row += THUMBNAIL_HEIGHT + THUMBNAIL_PADDING
         
         path = self.DIR_COMPOSITE + today + "/"
         finalName = path + now + ".png"
