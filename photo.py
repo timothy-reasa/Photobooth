@@ -118,7 +118,7 @@ class Photobooth(Tkinter.Label):
         #Take photos; save to disk, resize and cache photos
         for imageName in imageNames:
             photo = self.takeSinglePhoto(5)
-            photo.save(imageName, "JPEG")
+            photo.save(imageName)
             photo.resize((self.THUMBNAIL_WIDTH,self.THUMBNAIL_HEIGHT), Image.ANTIALIAS)
             images.append(photo)
             time.sleep(0.5)
@@ -141,11 +141,11 @@ class Photobooth(Tkinter.Label):
         
         #Save the final image
         path = self.DIR_COMPOSITE + today + "/"
-        finalName = path + now + ".png"
+        finalName = path + now + ".jpg"
         if not (os.path.isdir(path)):
             os.makedirs(path)
             
-        final.save(finalName, "JPEG")
+        final.save(finalName)
         
         self.doPhotoPrint(finalName)
         return "break"
