@@ -118,7 +118,7 @@ class Photobooth(Tkinter.Label):
         #Take photos; save to disk, resize and cache photos
         for imageName in imageNames:
             photo = self.takeSinglePhoto(5)
-            photo.save(imageName)
+            photo.save(imageName, "JPEG")
             photo.resize((self.THUMBNAIL_WIDTH,self.THUMBNAIL_HEIGHT), Image.ANTIALIAS)
             images.append(photo)
             time.sleep(0.5)
@@ -135,9 +135,8 @@ class Photobooth(Tkinter.Label):
         column2 = self.PRINT_WIDTH / 2 + self.THUMBNAIL_PADDING
         row = self.THUMBNAIL_PADDING
         for photo in images:
-            mask = photo.convert("RGBA")
-            final.paste(photo, (column1,row), mask)
-            final.paste(photo, (column2,row), mask)
+            final.paste(photo, (column1,row), photo)
+            final.paste(photo, (column2,row), photo)
             row += self.THUMBNAIL_HEIGHT + self.THUMBNAIL_PADDING
         
         #Save the final image
@@ -146,7 +145,7 @@ class Photobooth(Tkinter.Label):
         if not (os.path.isdir(path)):
             os.makedirs(path)
             
-        final.save(finalName)
+        final.save(finalName, "JPEG")
         
         self.doPhotoPrint(finalName)
         return "break"
