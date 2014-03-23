@@ -119,7 +119,7 @@ class Photobooth(Tkinter.Label):
         for imageName in imageNames:
             photo = self.takeSinglePhoto(5)
             photo.save(imageName)
-            photo.resize((self.THUMBNAIL_WIDTH,self.THUMBNAIL_HEIGHT), Image.ANTIALIAS)
+            photo = photo.resize((self.THUMBNAIL_WIDTH,self.THUMBNAIL_HEIGHT), Image.ANTIALIAS)
             images.append(photo)
             time.sleep(0.5)
         
