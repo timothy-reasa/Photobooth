@@ -96,13 +96,15 @@ class Photobooth(Tkinter.Label):
         self.camera.capture(stream, format='jpeg')
         self.lightOff()
         
+        #It would be nice to display for a few seconds the picture that was just taken
+        
         stream.seek(0)
         photo = Image.open(stream)
         return photo
         
     def takePhotos(self, event=None):
         
-        #Start taking Photos
+        #Start taking photos
         today = time.strftime("%Y-%m-%d")
         path = self.DIR_SAVE + today + "/"
         if not (os.path.isdir(path)):
@@ -113,19 +115,22 @@ class Photobooth(Tkinter.Label):
         imageNames = [path + now + "_" + str(i) + ".jpg" for i in range(1, 1 + self.NUM_IMAGES)]
         images = []
         
+        #Take photos; save to disk, resize and cache photos
         for imageName in imageNames:
             photo = self.takeSinglePhoto(5)
             photo.save(imageName)
-            photo.resize((self.THUMBNAIL_WIDTH,self.THUMBNAIL_HEIGHT), ANTIALIAS)
+            photo.resize((self.THUMBNAIL_WIDTH,self.THUMBNAIL_HEIGHT), Image.ANTIALIAS)
             images.append(photo)
             time.sleep(0.5)
-         
+        
+        #Open the final image        
         try:
             final = Image.open(self.DIR_IMAGE + "print_background.png")
         except:
             print "Unable to load BG"
             exit(1)
         
+        #Lay out the photos on the final image
         column1 = THUMBNAIL_PADDING
         column2 = PRINT_WIDTH / 2 + THUMBNAIL_PADDING
         row = THUMBNAIL_PADDING
@@ -134,6 +139,7 @@ class Photobooth(Tkinter.Label):
             final.paste(photo, (column2,row))
             row += THUMBNAIL_HEIGHT + THUMBNAIL_PADDING
         
+        #Save the final image
         path = self.DIR_COMPOSITE + today + "/"
         finalName = path + now + ".png"
         if not (os.path.isdir(path)):
