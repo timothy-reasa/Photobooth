@@ -31,6 +31,12 @@ class Photobooth(Tkinter.Label):
     SCREEN_HEIGHT = 1050
     CAMERA_WIDTH = 1200
     CAMERA_HEIGHT = 800
+    PRINT_WIDTH = 900
+    PRINT_HEIGHT = 1500
+    THUMBNAIL_WIDTH = 427
+    THUMBNAIL_HEIGHT = 240
+    THUMBNAIL_PADDING = 5
+    
 
     DIR_SAVE = "/home/pi/Photobooth/captured_images/"	#for individual camera snapshots
     DIR_COMPOSITE = "/home/pi/Photobooth/final_images/" #for final composite images for printing
@@ -110,6 +116,7 @@ class Photobooth(Tkinter.Label):
         for imageName in imageNames:
             photo = self.takeSinglePhoto(5)
             photo.save(imageName)
+            photo.resize((self.THUMBNAIL_WIDTH, self.THUMBNAIL_HEIGHT), ANTIALIAS)
             images.append(photo)
             time.sleep(0.5)
          
@@ -118,11 +125,21 @@ class Photobooth(Tkinter.Label):
         except:
             print "Unable to load BG"
             exit(1)
-
-        final.paste(images[0], (30,180))
-        final.paste(images[1], (420,180))
-        final.paste(images[2], (30,570))
-        final.paste(images[3], (420,570))
+        
+        column1 = THUMBNAIL_PADDING
+        column2 = PRINT_WIDTH / 2 + THUMBNAIL_PADDING
+        row = THUMBNAIL_PADDING
+        final.paste(images[0], (column1,row))
+        final.paste(images[0], (column2,row))
+        row += THUMBNAIL_HEIGHT + THUMBNAIL_PADDING
+        final.paste(images[1], (column1,row))
+        final.paste(images[1], (column2,row))
+        row += THUMBNAIL_HEIGHT + THUMBNAIL_PADDING
+        final.paste(images[2], (column1,row))
+        final.paste(images[2], (column2,row))
+        row += THUMBNAIL_HEIGHT + THUMBNAIL_PADDING
+        final.paste(images[3], (column1,row))
+        final.paste(images[3], (column2,row))
         
         path = self.DIR_COMPOSITE + today + "/"
         finalName = path + now + ".png"
