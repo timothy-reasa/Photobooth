@@ -19,11 +19,15 @@ import RPi.GPIO as gpio
 class Photobooth(Tkinter.Label):
     #Declare constants
     BTN_SHUTDOWN = 4
-    BTN_PHOTO = 22
-    OUT_LIGHT = 17
-    OUT_WARNING = 0
+    BTN_PHOTO_CLR = 17
+    BTN_PHOTO_BW = 18
+    OUT_LIGHT = 22
+    OUT_WARNING = 23
 
     DELAY_MS = 100
+    DELAY_QUIT = 2000
+    DELAY_SHUTDOWN = 6000
+    
     NUM_IMAGES = 4
     MAX_PRINTS = 25
 
@@ -36,7 +40,6 @@ class Photobooth(Tkinter.Label):
     THUMBNAIL_WIDTH = 430
     THUMBNAIL_HEIGHT = 288
     THUMBNAIL_PADDING = 5
-    
 
     DIR_SAVE = "/home/pi/Photobooth/captured_images/"	#for individual camera snapshots
     DIR_COMPOSITE = "/home/pi/Photobooth/final_images/" #for final composite images for printing
@@ -47,8 +50,11 @@ class Photobooth(Tkinter.Label):
     def shouldShutdown(self):
         return gpio.input(Photobooth.BTN_SHUTDOWN)
         
-    def shouldStart(self):
-        return gpio.input(Photobooth.BTN_PHOTO)
+    def shouldStartColor(self):
+        return gpio.input(Photobooth.BTN_PHOTO_CLR)
+        
+    def shouldStartBlackWhite(self):
+        return gpio.input(Photobooth.BTN_PHOTO_BW)
             
     def lightOn(self):
         gpio.output(Photobooth.OUT_LIGHT, 1)
@@ -69,7 +75,8 @@ class Photobooth(Tkinter.Label):
         
     def doShutdown(self):
         if self.TEST:
-            os.system("sudo shutdown -k now shutdown button pressed [testing]")
+            self.closeProgram()
+            
         else:
             gpio.cleanup()
             os.system("sudo shutdown -h now shutdown button pressed")
@@ -102,7 +109,12 @@ class Photobooth(Tkinter.Label):
         photo = Image.open(stream)
         return photo
         
-    def takePhotos(self, event=None):
+    def takePhotos(self, event=None, color):
+        
+        if color:
+            camera.color_effects = None         #default color
+        else:
+            camera.color_effects = (128, 128)   #black and white
         
         #Start taking photos
         today = time.strftime("%Y-%m-%d")
@@ -132,7 +144,7 @@ class Photobooth(Tkinter.Label):
         
         #Lay out the photos on the final image
         column1 = self.THUMBNAIL_PADDING
-        column2 = self.PRINT_WIDTH / 2 + self.THUMBNAIL_PADDING
+        column2 = self.PRINT_WIDTH - self.THUMBNAIL_PADDING - self.THUMBNAIL_WIDTH
         row = self.THUMBNAIL_PADDING
         for photo in images:
             final.paste(photo, (column1,row))
@@ -153,12 +165,34 @@ class Photobooth(Tkinter.Label):
     def mainBody(self):
     
         #First, check for exit conditions
-        if self.shouldShutdown():
-            self.doShutdown()
+        if not self.shouldShutdown():
+            if self.willShutDown:       #Wait until the button is released for quit and shutdown
+                self.doShutdown()
+                return "break"
+                
+            else if self.willQuit:
+                self.closeProgram()
+                return "break"
+        
+            self.buttonCount = 0
+            self.willQuit = False
+            self.willShutDown = False
+            
+        else:
+            self.warn = False           #Clear the warn flag immediately
+            self.buttonCount += 1
+            if self.buttonCount > (DELAY_QUIT / DELAY_MS):
+                self.willQuit = True    
+            if self.buttonCount > (DELAY_SHUTDOWN / DELAY_MS):
+                self.willShutDown = true
             
         #Second, check if we should begin photobooth-ing
-        if not self.warn and self.shouldStart():
-            self.takePhotos()
+        if not self.warn 
+            if self.shouldStartColor():
+                self.takePhotos(True)
+            else if self.shouldStartBlackWhite():
+                self.takePhotos(False)
+            
         
         #Finally, schedule ourself to run again
         self.after(Photobooth.DELAY_MS, self.mainBody)
@@ -167,8 +201,10 @@ class Photobooth(Tkinter.Label):
         #Setup gpio
         gpio.setmode(gpio.BCM)
         gpio.setup(Photobooth.BTN_SHUTDOWN, gpio.IN)
-        gpio.setup(Photobooth.BTN_PHOTO, gpio.IN)
-        gpio.setup(Photobooth.OUT_LIGHT, gpio.OUT)
+        gpio.setup(Photobooth.BTN_PHOTO_CLR, gpio.IN)
+        gpio.setup(Photobooth.BTN_PHOTO_BW, gpio.IN)
+        #gpio.setup(Photobooth.OUT_LIGHT, gpio.OUT)
+        #gpio.setup(Photobooth.OUT_WARN, gpio.OUT)
 
         #Initialize GUI
         bgImage = PhotoImage(file=self.DIR_IMAGE + "screen_background.png")
@@ -176,7 +212,8 @@ class Photobooth(Tkinter.Label):
         self.master = master
         self.image = bgImage
         self.bind("<Escape>", self.closeProgram)
-        self.bind("<Return>", self.takePhotos)
+        self.bind("z", self.takePhotos(True))
+        self.bind("x", self.takePhotos(False))
         self.pack(side=Tkinter.TOP, expand=Tkinter.YES, fill=Tkinter.BOTH)
         
         #master.overrideredirect(1)
@@ -189,9 +226,6 @@ class Photobooth(Tkinter.Label):
         self.camera.preview_fullscreen = False
         self.camera.resolution = (self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
         self.camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, (self.SCREEN_HEIGHT - self.CAMERA_HEIGHT) / 3, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
-        #camera.start_preview()
-        #camera.color_effects = (128, 128)
-        #camera.crop = (0.5, 0.5, 1.0, 1.0)
 
         #Initialize state
         self.printCount = 0
