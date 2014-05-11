@@ -58,16 +58,16 @@ class Photobooth(Tkinter.Label):
         return False #gpio.input(Photobooth.BTN_PHOTO_BW)
             
     def lightOn(self):
-        #gpio.output(Photobooth.OUT_LIGHT, 1)
+        a = 1 #gpio.output(Photobooth.OUT_LIGHT, 1)
 
     def lightOff(self):
-        #gpio.output(Photobooth.OUT_LIGHT, 0)
+        a = 1 #gpio.output(Photobooth.OUT_LIGHT, 0)
         
     def warnOn(self):
-        #gpio.output(Photobooth.OUT_WARNING, 1)
+        a = 1 #gpio.output(Photobooth.OUT_WARNING, 1)
 
     def warnOff(self):
-        #gpio.output(Photobooth.OUT_WARNING, 0)
+        a = 1 #gpio.output(Photobooth.OUT_WARNING, 0)
 
     def closeProgram(self, event=None):    
         gpio.cleanup()
