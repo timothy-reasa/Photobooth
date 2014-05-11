@@ -37,8 +37,8 @@ class Photobooth(Tkinter.Label):
     CAMERA_HEIGHT = 800
     PRINT_WIDTH = 960
     PRINT_HEIGHT = 1520
-    THUMBNAIL_WIDTH = 450
-    THUMBNAIL_HEIGHT = 300
+    THUMBNAIL_WIDTH = 460
+    THUMBNAIL_HEIGHT = 307
     THUMBNAIL_PADDING = 10
     PRINT_TOP_PADDING = 25
 
@@ -225,8 +225,7 @@ class Photobooth(Tkinter.Label):
         self.master = master
         self.image = bgImage
         self.bind("<Escape>", self.closeProgram)
-        self.bind("z", self.takePhotos(True))
-        self.bind("x", self.takePhotos(False))
+        self.bind("<Return>", self.takePhotos(False))
         self.pack(side=Tkinter.TOP, expand=Tkinter.YES, fill=Tkinter.BOTH)
         
         #master.overrideredirect(1)
