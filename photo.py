@@ -204,8 +204,8 @@ class Photobooth(Tkinter.Label):
         gpio.setup(Photobooth.BTN_SHUTDOWN, gpio.IN)
         gpio.setup(Photobooth.BTN_PHOTO_CLR, gpio.IN)
         gpio.setup(Photobooth.BTN_PHOTO_BW, gpio.IN)
-        #gpio.setup(Photobooth.OUT_LIGHT, gpio.OUT)
-        #gpio.setup(Photobooth.OUT_WARN, gpio.OUT)
+        gpio.setup(Photobooth.OUT_LIGHT, gpio.OUT)
+        gpio.setup(Photobooth.OUT_WARN, gpio.OUT)
 
         #Initialize PI camera
         self.camera=picamera.PiCamera()
