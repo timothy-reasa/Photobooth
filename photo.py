@@ -18,11 +18,11 @@ import RPi.GPIO as gpio
 
 class Photobooth(Tkinter.Label):
     #Declare constants
-    BTN_SHUTDOWN = 4
-    BTN_PHOTO_CLR = 17
-    BTN_PHOTO_BW = 18
-    OUT_LIGHT = 22
-    OUT_WARNING = 23
+    BTN_SHUTDOWN = 7
+    BTN_PHOTO_CLR = 11
+    BTN_PHOTO_BW = 12
+    OUT_LIGHT = 15
+    OUT_WARNING = 16
 
     DELAY_MS = 100
     DELAY_QUIT = 2000
