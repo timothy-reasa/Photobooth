@@ -110,7 +110,7 @@ class Photobooth(Tkinter.Label):
         photo = Image.open(stream)
         return photo
         
-    def takePhotos(self, event=None, color=True):
+    def takePhotos(self, color=True):
         
         if color:
             self.camera.color_effects = None         #default color
@@ -163,6 +163,12 @@ class Photobooth(Tkinter.Label):
         self.doPhotoPrint(finalName)
         return "break"
     
+    def takeColorPhotos(self, event)
+        self.takePhotos(True)
+        
+    def takeBWPhotos(self, event)
+        self.takePhotos(False)
+    
     def mainBody(self):
     
         #First, check for exit conditions
@@ -205,13 +211,7 @@ class Photobooth(Tkinter.Label):
         gpio.setup(Photobooth.BTN_PHOTO_CLR, gpio.IN)
         gpio.setup(Photobooth.BTN_PHOTO_BW, gpio.IN)
         #gpio.setup(Photobooth.OUT_LIGHT, gpio.OUT)
-        #gpio.setup(Photobooth.OUT_WARNING, gpio.OUT)
-
-        #Initialize PI camera
-        self.camera=picamera.PiCamera()
-        self.camera.preview_fullscreen = False
-        self.camera.resolution = (self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
-        self.camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, (self.SCREEN_HEIGHT - self.CAMERA_HEIGHT) / 3, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
+        #gpio.setup(Photobooth.OUT_WARNING, gpio.OUT)        
 
         #Initialize state
         self.printCount = 0
@@ -225,12 +225,19 @@ class Photobooth(Tkinter.Label):
         self.master = master
         self.image = bgImage
         self.bind("<Escape>", self.closeProgram)
-        self.bind("<Return>", self.takePhotos(False))
+        self.bind("x", self.takeColorPhotos)
+        self.bind("y", self.takeBWPhotos)
         self.pack(side=Tkinter.TOP, expand=Tkinter.YES, fill=Tkinter.BOTH)
         
         #master.overrideredirect(1)
         master.geometry(str(self.SCREEN_WIDTH) + "x" + str(self.SCREEN_HEIGHT) + "+0+0")
 
+        #Initialize PI camera
+        self.camera=picamera.PiCamera()
+        self.camera.preview_fullscreen = False
+        self.camera.resolution = (self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
+        self.camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, (self.SCREEN_HEIGHT - self.CAMERA_HEIGHT) / 3, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
+        
         self.focus_set()
     
 root = Tkinter.Tk()
