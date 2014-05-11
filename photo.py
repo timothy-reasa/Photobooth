@@ -207,6 +207,16 @@ class Photobooth(Tkinter.Label):
         #gpio.setup(Photobooth.OUT_LIGHT, gpio.OUT)
         #gpio.setup(Photobooth.OUT_WARN, gpio.OUT)
 
+        #Initialize PI camera
+        self.camera=picamera.PiCamera()
+        self.camera.preview_fullscreen = False
+        self.camera.resolution = (self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
+        self.camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, (self.SCREEN_HEIGHT - self.CAMERA_HEIGHT) / 3, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
+
+        #Initialize state
+        self.printCount = 0
+        self.warn = False
+        
         #Initialize GUI
         bgImage = PhotoImage(file=self.DIR_IMAGE + "screen_background.png")
         Tkinter.Label.__init__(self, master, image=bgImage)
@@ -221,16 +231,6 @@ class Photobooth(Tkinter.Label):
         master.geometry(str(self.SCREEN_WIDTH) + "x" + str(self.SCREEN_HEIGHT) + "+0+0")
 
         self.focus_set()
-
-        #Initialize PI camera
-        self.camera=picamera.PiCamera()
-        self.camera.preview_fullscreen = False
-        self.camera.resolution = (self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
-        self.camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, (self.SCREEN_HEIGHT - self.CAMERA_HEIGHT) / 3, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
-
-        #Initialize state
-        self.printCount = 0
-        self.warn = False
     
 root = Tkinter.Tk()
 root.title("Photobooth")
