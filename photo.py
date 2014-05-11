@@ -110,7 +110,7 @@ class Photobooth(Tkinter.Label):
         photo = Image.open(stream)
         return photo
         
-    def takePhotos(self, event=None, color):
+    def takePhotos(self, event=None, color=True):
         
         if color:
             camera.color_effects = None         #default color
