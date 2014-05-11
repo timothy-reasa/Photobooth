@@ -40,6 +40,7 @@ class Photobooth(Tkinter.Label):
     THUMBNAIL_WIDTH = 430
     THUMBNAIL_HEIGHT = 288
     THUMBNAIL_PADDING = 5
+    PRINT_TOP_PADDING = 30
 
     DIR_SAVE = "/home/pi/Photobooth/captured_images/"	#for individual camera snapshots
     DIR_COMPOSITE = "/home/pi/Photobooth/final_images/" #for final composite images for printing
@@ -145,7 +146,7 @@ class Photobooth(Tkinter.Label):
         #Lay out the photos on the final image
         column1 = self.THUMBNAIL_PADDING
         column2 = self.PRINT_WIDTH - self.THUMBNAIL_PADDING - self.THUMBNAIL_WIDTH
-        row = self.THUMBNAIL_PADDING
+        row = self.THUMBNAIL_PADDING + self.PRINT_TOP_PADDING
         for photo in images:
             final.paste(photo, (column1,row))
             final.paste(photo, (column2,row))
