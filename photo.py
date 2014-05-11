@@ -21,8 +21,8 @@ class Photobooth(Tkinter.Label):
     BTN_SHUTDOWN = 7
     BTN_PHOTO_CLR = 11
     BTN_PHOTO_BW = 12
-    OUT_LIGHT = 15
-    OUT_WARNING = 16
+    #OUT_LIGHT = 15
+    #OUT_WARNING = 16
 
     DELAY_MS = 100
     DELAY_QUIT = 2000
@@ -58,16 +58,16 @@ class Photobooth(Tkinter.Label):
         return gpio.input(Photobooth.BTN_PHOTO_BW)
             
     def lightOn(self):
-        gpio.output(Photobooth.OUT_LIGHT, 1)
+        #gpio.output(Photobooth.OUT_LIGHT, 1)
 
     def lightOff(self):
-        gpio.output(Photobooth.OUT_LIGHT, 0)
+        #gpio.output(Photobooth.OUT_LIGHT, 0)
         
     def warnOn(self):
-        gpio.output(Photobooth.OUT_WARNING, 1)
+        #gpio.output(Photobooth.OUT_WARNING, 1)
 
     def warnOff(self):
-        gpio.output(Photobooth.OUT_WARNING, 0)
+        #gpio.output(Photobooth.OUT_WARNING, 0)
 
     def closeProgram(self, event=None):    
         gpio.cleanup()
@@ -204,8 +204,8 @@ class Photobooth(Tkinter.Label):
         gpio.setup(Photobooth.BTN_SHUTDOWN, gpio.IN)
         gpio.setup(Photobooth.BTN_PHOTO_CLR, gpio.IN)
         gpio.setup(Photobooth.BTN_PHOTO_BW, gpio.IN)
-        gpio.setup(Photobooth.OUT_LIGHT, gpio.OUT)
-        gpio.setup(Photobooth.OUT_WARNING, gpio.OUT)
+        #gpio.setup(Photobooth.OUT_LIGHT, gpio.OUT)
+        #gpio.setup(Photobooth.OUT_WARNING, gpio.OUT)
 
         #Initialize PI camera
         self.camera=picamera.PiCamera()
