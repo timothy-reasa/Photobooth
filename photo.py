@@ -49,13 +49,13 @@ class Photobooth(Tkinter.Label):
     TEST = True #True no printout and shutdown only warns
 
     def shouldShutdown(self):
-        #return gpio.input(Photobooth.BTN_SHUTDOWN)
+        return False #gpio.input(Photobooth.BTN_SHUTDOWN)
         
     def shouldStartColor(self):
-        #return gpio.input(Photobooth.BTN_PHOTO_CLR)
+        return False #gpio.input(Photobooth.BTN_PHOTO_CLR)
         
     def shouldStartBlackWhite(self):
-        #return gpio.input(Photobooth.BTN_PHOTO_BW)
+        return False #gpio.input(Photobooth.BTN_PHOTO_BW)
             
     def lightOn(self):
         #gpio.output(Photobooth.OUT_LIGHT, 1)
