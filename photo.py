@@ -171,7 +171,7 @@ class Photobooth(Tkinter.Label):
                 self.doShutdown()
                 return "break"
                 
-            else if self.willQuit:
+            elif self.willQuit:
                 self.closeProgram()
                 return "break"
         
@@ -191,7 +191,7 @@ class Photobooth(Tkinter.Label):
         if not self.warn 
             if self.shouldStartColor():
                 self.takePhotos(True)
-            else if self.shouldStartBlackWhite():
+            elif self.shouldStartBlackWhite():
                 self.takePhotos(False)
             
         
