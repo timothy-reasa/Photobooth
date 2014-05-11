@@ -35,11 +35,11 @@ class Photobooth(Tkinter.Label):
     SCREEN_HEIGHT = 1050
     CAMERA_WIDTH = 1200
     CAMERA_HEIGHT = 800
-    PRINT_WIDTH = 900
-    PRINT_HEIGHT = 1500
+    PRINT_WIDTH = 930
+    PRINT_HEIGHT = 1520
     THUMBNAIL_WIDTH = 430
     THUMBNAIL_HEIGHT = 288
-    THUMBNAIL_PADDING = 5
+    THUMBNAIL_PADDING = 10
     PRINT_TOP_PADDING = 30
 
     DIR_SAVE = "/home/pi/Photobooth/captured_images/"	#for individual camera snapshots
