@@ -200,7 +200,7 @@ class Photobooth(Tkinter.Label):
     
     def __init__(self, master):      
         #Setup gpio
-        gpio.setmode(gpio.BCM)
+        gpio.setmode(gpio.BOARD)
         gpio.setup(Photobooth.BTN_SHUTDOWN, gpio.IN)
         gpio.setup(Photobooth.BTN_PHOTO_CLR, gpio.IN)
         gpio.setup(Photobooth.BTN_PHOTO_BW, gpio.IN)
