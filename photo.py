@@ -35,7 +35,7 @@ class Photobooth(Tkinter.Label):
     SCREEN_HEIGHT = 1050
     CAMERA_WIDTH = 1200
     CAMERA_HEIGHT = 800
-    PRINT_WIDTH = 930
+    PRINT_WIDTH = 960
     PRINT_HEIGHT = 1520
     THUMBNAIL_WIDTH = 430
     THUMBNAIL_HEIGHT = 288
@@ -144,8 +144,8 @@ class Photobooth(Tkinter.Label):
             exit(1)
         
         #Lay out the photos on the final image
-        column1 = self.THUMBNAIL_PADDING
-        column2 = self.PRINT_WIDTH - self.THUMBNAIL_PADDING - self.THUMBNAIL_WIDTH
+        column1 = 0  # CUPS on the raspberry pi doesn't seem to print to the edge self.THUMBNAIL_PADDING
+        column2 = self.PRINT_WIDTH - self.THUMBNAIL_WIDTH # - self.THUMBNAIL_PADDING
         row = self.THUMBNAIL_PADDING + self.PRINT_TOP_PADDING
         for photo in images:
             final.paste(photo, (column1,row))
