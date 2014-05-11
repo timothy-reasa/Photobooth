@@ -163,11 +163,11 @@ class Photobooth(Tkinter.Label):
         self.doPhotoPrint(finalName)
         return "break"
     
-    def takeColorPhotos(self, event)
-        self.takePhotos(True)
+    def takeColorPhotos(self, event=None):
+        return self.takePhotos(True)
         
-    def takeBWPhotos(self, event)
-        self.takePhotos(False)
+    def takeBWPhotos(self, event=None):
+        return self.takePhotos(False)
     
     def mainBody(self):
     
