@@ -188,7 +188,7 @@ class Photobooth(Tkinter.Label):
                 self.willShutDown = true
             
         #Second, check if we should begin photobooth-ing
-        if not self.warn 
+        if not self.warn: 
             if self.shouldStartColor():
                 self.takePhotos(True)
             elif self.shouldStartBlackWhite():
