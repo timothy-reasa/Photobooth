@@ -185,7 +185,7 @@ class Photobooth(Tkinter.Label):
             if self.buttonCount > (DELAY_QUIT / DELAY_MS):
                 self.willQuit = True    
             if self.buttonCount > (DELAY_SHUTDOWN / DELAY_MS):
-                self.willShutDown = true
+                self.willShutDown = True
             
         #Second, check if we should begin photobooth-ing
         if not self.warn: 
@@ -216,6 +216,8 @@ class Photobooth(Tkinter.Label):
         #Initialize state
         self.printCount = 0
         self.warn = False
+        self.willShutDown = False
+        self.willQuit = False
         
         #Initialize GUI
         bgImage = PhotoImage(file=self.DIR_IMAGE + "screen_background.png")
