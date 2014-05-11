@@ -113,9 +113,9 @@ class Photobooth(Tkinter.Label):
     def takePhotos(self, event=None, color=True):
         
         if color:
-            camera.color_effects = None         #default color
+            self.camera.color_effects = None         #default color
         else:
-            camera.color_effects = (128, 128)   #black and white
+            self.camera.color_effects = (128, 128)   #black and white
         
         #Start taking photos
         today = time.strftime("%Y-%m-%d")
