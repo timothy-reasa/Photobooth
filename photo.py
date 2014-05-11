@@ -33,14 +33,16 @@ class Photobooth(Tkinter.Label):
 
     SCREEN_WIDTH = 1680
     SCREEN_HEIGHT = 1050
+    SCREEN_TOP_PADDING = 120
     CAMERA_WIDTH = 1200
     CAMERA_HEIGHT = 800
     PRINT_WIDTH = 960
     PRINT_HEIGHT = 1520
+    PRINT_TOP_PADDING = 25
     THUMBNAIL_WIDTH = 460
     THUMBNAIL_HEIGHT = 307
     THUMBNAIL_PADDING = 10
-    PRINT_TOP_PADDING = 25
+
 
     DIR_SAVE = "/home/pi/Photobooth/captured_images/"	#for individual camera snapshots
     DIR_COMPOSITE = "/home/pi/Photobooth/final_images/" #for final composite images for printing
@@ -236,7 +238,7 @@ class Photobooth(Tkinter.Label):
         self.camera=picamera.PiCamera()
         self.camera.preview_fullscreen = False
         self.camera.resolution = (self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
-        self.camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, (self.SCREEN_HEIGHT - self.CAMERA_HEIGHT) / 3, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
+        self.camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, self.SCREEN_TOP_PADDING, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
         
         self.focus_set()
     
