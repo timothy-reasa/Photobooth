@@ -33,7 +33,7 @@ class Photobooth(Tkinter.Label):
 
     SCREEN_WIDTH = 1680
     SCREEN_HEIGHT = 1050
-    SCREEN_TOP_PADDING = 105
+    SCREEN_TOP_PADDING = 106 
     CAMERA_WIDTH = 1200
     CAMERA_HEIGHT = 800
     PRINT_WIDTH = 960
@@ -51,13 +51,13 @@ class Photobooth(Tkinter.Label):
     TEST = True #True no printout and shutdown only warns
 
     def shouldShutdown(self):
-        return False #gpio.input(Photobooth.BTN_SHUTDOWN)
+        return gpio.input(Photobooth.BTN_SHUTDOWN)
         
     def shouldStartColor(self):
-        return False #gpio.input(Photobooth.BTN_PHOTO_CLR)
+        return gpio.input(Photobooth.BTN_PHOTO_CLR)
         
     def shouldStartBlackWhite(self):
-        return False #gpio.input(Photobooth.BTN_PHOTO_BW)
+        return gpio.input(Photobooth.BTN_PHOTO_BW)
             
     def lightOn(self):
         a = 1 #gpio.output(Photobooth.OUT_LIGHT, 1)
@@ -227,8 +227,8 @@ class Photobooth(Tkinter.Label):
         self.master = master
         self.image = bgImage
         self.bind("<Escape>", self.closeProgram)
-        self.bind("x", self.takeColorPhotos)
-        self.bind("y", self.takeBWPhotos)
+        self.bind("z", self.takeCol orPhotos)
+        self.bind("x", self.takeBWPhotos)
         self.pack(side=Tkinter.TOP, expand=Tkinter.YES, fill=Tkinter.BOTH)
         
         #master.overrideredirect(1)
