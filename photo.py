@@ -227,7 +227,7 @@ class Photobooth(Tkinter.Label):
         self.master = master
         self.image = bgImage
         self.bind("<Escape>", self.closeProgram)
-        self.bind("z", self.takeCol orPhotos)
+        self.bind("z", self.takeColorPhotos)
         self.bind("x", self.takeBWPhotos)
         self.pack(side=Tkinter.TOP, expand=Tkinter.YES, fill=Tkinter.BOTH)
         
