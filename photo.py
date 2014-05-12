@@ -190,9 +190,9 @@ class Photobooth(Tkinter.Label):
         else:
             self.warn = False           #Clear the warn flag immediately
             self.buttonCount += 1
-            if self.buttonCount > (DELAY_QUIT / DELAY_MS):
+            if self.buttonCount > (self.DELAY_QUIT / self.DELAY_MS):
                 self.willQuit = True    
-            if self.buttonCount > (DELAY_SHUTDOWN / DELAY_MS):
+            if self.buttonCount > (self.DELAY_SHUTDOWN / self.DELAY_MS):
                 self.willShutDown = True
             
         #Second, check if we should begin photobooth-ing
