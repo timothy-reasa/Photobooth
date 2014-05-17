@@ -48,7 +48,7 @@ class Photobooth(Tkinter.Label):
     DIR_COMPOSITE = "/home/pi/Photobooth/final_images/" #for final composite images for printing
     DIR_IMAGE = "/home/pi/Photobooth/base_images/"		#for static background images
 
-    TEST = True #True no printout and shutdown only warns
+    TEST = False #True no printout and shutdown only warns
 
     def shouldShutdown(self):
         return gpio.input(Photobooth.BTN_SHUTDOWN)
@@ -103,7 +103,7 @@ class Photobooth(Tkinter.Label):
         time.sleep(previewLength)
         self.camera.stop_preview()
         self.camera.hflip = False
-        self.camera.capture(stream, format='jpeg')
+        self.camera.capture(stream, format='jpeg', resize=(self.CAMERA_WIDTH, self.CAMERA_HEIGHT))
         self.lightOff()
         
         #It would be nice to display for a few seconds the picture that was just taken
@@ -231,13 +231,13 @@ class Photobooth(Tkinter.Label):
         self.bind("x", self.takeBWPhotos)
         self.pack(side=Tkinter.TOP, expand=Tkinter.YES, fill=Tkinter.BOTH)
         
-        #master.overrideredirect(1)
+        master.overrideredirect(1)      #full screen mode (due to a bug, this disrupts key bindings)
         master.geometry(str(self.SCREEN_WIDTH) + "x" + str(self.SCREEN_HEIGHT) + "+0+0")
 
         #Initialize PI camera
         self.camera=picamera.PiCamera()
         self.camera.preview_fullscreen = False
-        self.camera.resolution = (self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
+        self.camera.resolution = self.camera.MAX_IMAGE_RESOLUTION  #This is to force full FOV previews
         self.camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, self.SCREEN_TOP_PADDING, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
         
         self.focus_set()
