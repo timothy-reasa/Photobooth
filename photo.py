@@ -35,12 +35,13 @@ class Photobooth(Tkinter.Label):
     SCREEN_HEIGHT = 1050
     SCREEN_TOP_PADDING = 106 
     CAMERA_WIDTH = 1200
-    CAMERA_HEIGHT = 800
+    CAMERA_HEIGHT = 900
     PRINT_WIDTH = 960
     PRINT_HEIGHT = 1520
     PRINT_TOP_PADDING = 25
     THUMBNAIL_WIDTH = 460
-    THUMBNAIL_HEIGHT = 307
+    THUMBNAIL_HEIGHT = 342
+    THUMBNAIL_HEIGHT_CROPPED = 307
     THUMBNAIL_PADDING = 10
 
 
@@ -237,7 +238,7 @@ class Photobooth(Tkinter.Label):
         #Initialize PI camera
         self.camera=picamera.PiCamera()
         self.camera.preview_fullscreen = False
-        self.camera.resolution = self.camera.MAX_IMAGE_RESOLUTION  #This is to force full FOV previews
+        self.camera.resolution = (self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
         self.camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, self.SCREEN_TOP_PADDING, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
         
         self.focus_set()
