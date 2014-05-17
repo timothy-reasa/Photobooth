@@ -33,7 +33,6 @@ class Photobooth(Tkinter.Label):
 
     SCREEN_WIDTH = 1680
     SCREEN_HEIGHT = 1050
-    SCREEN_TOP_PADDING = 106 
     CAMERA_WIDTH = 1200
     CAMERA_HEIGHT = 900
     PRINT_WIDTH = 960
@@ -41,7 +40,7 @@ class Photobooth(Tkinter.Label):
     PRINT_TOP_PADDING = 25
     THUMBNAIL_WIDTH = 460
     THUMBNAIL_HEIGHT = 342
-    THUMBNAIL_HEIGHT_CROPPED = 307
+    THUMBNAIL_HEIGHT_CROPPED = 322
     THUMBNAIL_PADDING = 10
 
 
@@ -136,6 +135,11 @@ class Photobooth(Tkinter.Label):
             photo = self.takeSinglePhoto(5)
             photo.save(imageName)
             photo = photo.resize((self.THUMBNAIL_WIDTH,self.THUMBNAIL_HEIGHT), Image.ANTIALIAS)
+            
+            #Photos must be taken in 4:3 to get a full FOV. We don't have room to
+            #print 4:3 photos, so crop some off the top and bottom. Hopefully folks don't notice.
+            cropVertical = (self.THUMBNAIL_HEIGHT - self.THUMBNAIL_HEIGHT_CROPPED) / 2
+            photo = photo.crop((0, cropVertical, self.THUMBNAIL_WIDTH, self.THUMBNAIL_HEIGHT - cropVertical))
             images.append(photo)
             time.sleep(0.5)
         
@@ -153,7 +157,7 @@ class Photobooth(Tkinter.Label):
         for photo in images:
             final.paste(photo, (column1,row))
             final.paste(photo, (column2,row))
-            row += self.THUMBNAIL_HEIGHT + self.THUMBNAIL_PADDING
+            row += self.THUMBNAIL_HEIGHT_CROPPED + self.THUMBNAIL_PADDING
         
         #Save the final image
         path = self.DIR_COMPOSITE + today + "/"
@@ -239,7 +243,7 @@ class Photobooth(Tkinter.Label):
         self.camera=picamera.PiCamera()
         self.camera.preview_fullscreen = False
         self.camera.resolution = (self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
-        self.camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, self.SCREEN_TOP_PADDING, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
+        self.camera.preview_window = ((self.SCREEN_WIDTH - self.CAMERA_WIDTH) / 2, (self.SCREEN_HEIGHT - self.CAMERA_HEIGHT) / 2, self.CAMERA_WIDTH, self.CAMERA_HEIGHT)
         
         self.focus_set()
     
