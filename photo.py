@@ -110,7 +110,7 @@ class Photobooth(Tkinter.Label):
         self.camera.stop_preview()
         self.camera.hflip = False
         self.camera.capture(stream, format='jpeg', resize=(self.CAMERA_WIDTH, self.CAMERA_HEIGHT))
-        self.countDown.set(" ")
+        self.countDown.set("   ")
         self.countDownLabel.update_idletasks()
         self.lightOff()
         
