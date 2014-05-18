@@ -239,12 +239,12 @@ class Photobooth(Tkinter.Label):
         
         self.countDown = Tkinter.StringVar()
         label = Tkinter.Label(master, textvariable=self.countDown, font=("Helvetica", 36))
-        label.place(x=1450, y=850)
+        label.place(x=self.SCREEN_WIDTH-200, y=self.SCREEN_HEIGHT-175)
         self.countDown.set("")
         
-        self.bind("<Escape>", self.closeProgram)
-        self.bind("z", self.takeColorPhotos)
-        self.bind("x", self.takeBWPhotos)
+        #self.bind("<Escape>", self.closeProgram)
+        #self.bind("z", self.takeColorPhotos)
+        #self.bind("x", self.takeBWPhotos)
         self.pack(side=Tkinter.TOP, expand=Tkinter.YES, fill=Tkinter.BOTH)
         
         master.overrideredirect(1)      #full screen mode (due to a bug, this disrupts key bindings)
