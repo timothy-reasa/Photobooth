@@ -110,7 +110,7 @@ class Photobooth(Tkinter.Label):
         self.camera.stop_preview()
         self.camera.hflip = False
         self.camera.capture(stream, format='jpeg', resize=(self.CAMERA_WIDTH, self.CAMERA_HEIGHT))
-        self.countDown.set("")
+        self.countDown.set(" ")
         self.countDownLabel.update_idletasks()
         self.lightOff()
         
@@ -242,7 +242,7 @@ class Photobooth(Tkinter.Label):
         
         self.countDown = Tkinter.StringVar()
         self.countDownLabel = Tkinter.Label(master, textvariable=self.countDown, font=("Helvetica", 72), bg='white')
-        self.countDownLabel.place(x=self.SCREEN_WIDTH-100, y=self.SCREEN_HEIGHT-150)
+        self.countDownLabel.place(x=self.SCREEN_WIDTH-112, y=self.SCREEN_HEIGHT-150)
         self.countDown.set("")
         
         self.bind("<Escape>", self.closeProgram)
