@@ -237,7 +237,7 @@ class Photobooth(Tkinter.Label):
         self.master = master
         self.image = bgImage
         
-        self.countDown = StringVar()
+        self.countDown = Tkinter.StringVar()
         label = Tkinter.Label(master, textvariable=self.countDown, font=("Helvetica", 36))
         label.place(x=1450, y=850)
         self.countDown.set("")
