@@ -233,7 +233,7 @@ class Photobooth(Tkinter.Label):
         
         #Initialize GUI
         bgImage = PhotoImage(file=self.DIR_IMAGE + "screen_background.png")
-        Tkinter.Label(master, image=bgImage)
+        Tkinter.Label.__init__(self, master, image=bgImage)
         self.master = master
         self.image = bgImage
         
@@ -242,9 +242,9 @@ class Photobooth(Tkinter.Label):
         label.place(x=self.SCREEN_WIDTH-200, y=self.SCREEN_HEIGHT-175)
         self.countDown.set("")
         
-        #self.bind("<Escape>", self.closeProgram)
-        #self.bind("z", self.takeColorPhotos)
-        #self.bind("x", self.takeBWPhotos)
+        self.bind("<Escape>", self.closeProgram)
+        self.bind("z", self.takeColorPhotos)
+        self.bind("x", self.takeBWPhotos)
         self.pack(side=Tkinter.TOP, expand=Tkinter.YES, fill=Tkinter.BOTH)
         
         master.overrideredirect(1)      #full screen mode (due to a bug, this disrupts key bindings)
