@@ -102,15 +102,16 @@ class Photobooth(Tkinter.Label):
         self.camera.start_preview()
         
         while previewLength > 0:
-            time.sleep(1)
-            self.countDown.set(previewLength)   #Update the counter label (take the photo on 1)
+            self.countDown.set(previewLength)   #Update the counter label
             self.countDownLabel.update_idletasks()
+            time.sleep(1)
             previewLength = previewLength - 1
             
         self.camera.stop_preview()
         self.camera.hflip = False
         self.camera.capture(stream, format='jpeg', resize=(self.CAMERA_WIDTH, self.CAMERA_HEIGHT))
         self.countDown.set("")
+        self.countDownLabel.update_idletasks()
         self.lightOff()
         
         #It would be nice to display for a few seconds the picture that was just taken
@@ -241,7 +242,7 @@ class Photobooth(Tkinter.Label):
         
         self.countDown = Tkinter.StringVar()
         self.countDownLabel = Tkinter.Label(master, textvariable=self.countDown, font=("Helvetica", 72), bg='white')
-        self.countDownLabel.place(x=self.SCREEN_WIDTH-150, y=self.SCREEN_HEIGHT-100)
+        self.countDownLabel.place(x=self.SCREEN_WIDTH-100, y=self.SCREEN_HEIGHT-150)
         self.countDown.set("")
         
         self.bind("<Escape>", self.closeProgram)
