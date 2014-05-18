@@ -100,10 +100,15 @@ class Photobooth(Tkinter.Label):
         self.lightOn()
         self.camera.hflip = True
         self.camera.start_preview()
-        time.sleep(previewLength)
+        
+        while previewLength > 0:
+            time.sleep(1)
+            self.countDown.set(previewLength)   #Update the counter label (take the photo on 1)
+            
         self.camera.stop_preview()
         self.camera.hflip = False
         self.camera.capture(stream, format='jpeg', resize=(self.CAMERA_WIDTH, self.CAMERA_HEIGHT))
+        self.countDown.set("")
         self.lightOff()
         
         #It would be nice to display for a few seconds the picture that was just taken
@@ -228,9 +233,15 @@ class Photobooth(Tkinter.Label):
         
         #Initialize GUI
         bgImage = PhotoImage(file=self.DIR_IMAGE + "screen_background.png")
-        Tkinter.Label.__init__(self, master, image=bgImage)
+        Tkinter.Label(self, master, image=bgImage)
         self.master = master
         self.image = bgImage
+        
+        self.countDown = StringVar()
+        label = Tkinter.Label(self, master, textvariable=self.countDown, font=("Helvetica", 36))
+        label.place(x=1450, y=850)
+        self.countDown.set("")
+        
         self.bind("<Escape>", self.closeProgram)
         self.bind("z", self.takeColorPhotos)
         self.bind("x", self.takeBWPhotos)
