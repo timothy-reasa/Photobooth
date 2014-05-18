@@ -104,6 +104,8 @@ class Photobooth(Tkinter.Label):
         while previewLength > 0:
             time.sleep(1)
             self.countDown.set(previewLength)   #Update the counter label (take the photo on 1)
+            self.countDownLabel.update_idletasks()
+            previewLength = previewLength - 1
             
         self.camera.stop_preview()
         self.camera.hflip = False
@@ -238,8 +240,8 @@ class Photobooth(Tkinter.Label):
         self.image = bgImage
         
         self.countDown = Tkinter.StringVar()
-        label = Tkinter.Label(master, textvariable=self.countDown, font=("Helvetica", 36))
-        label.place(x=self.SCREEN_WIDTH-200, y=self.SCREEN_HEIGHT-175)
+        self.countDownLabel = Tkinter.Label(master, textvariable=self.countDown, font=("Helvetica", 72), bg='white')
+        self.countDownLabel.place(x=self.SCREEN_WIDTH-150, y=self.SCREEN_HEIGHT-100)
         self.countDown.set("")
         
         self.bind("<Escape>", self.closeProgram)
